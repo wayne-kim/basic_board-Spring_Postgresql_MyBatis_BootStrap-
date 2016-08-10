@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.database.mapper.BoardMapper">
+  	<!-- 비회원 , 로그인 처리 후 동적 쿼리로 회원 생성도 지원하자-->
+  	<insert id="createBoard">
+  		INSERT INTO tbl_board1 (title, content)
+  		VALUES(#{title}, #{content})	
+  	</insert>
+  	
+  	<insert id="createComment">
+  		INSERT INTO tbl_board1 (content)
+  		VALUES(#{content})	
+  	</insert>
+  	
+  	<select id="read" resultType="BoardVO">
+  		SELECT *
+  		FROM tbl_board1 WHERE bno = #{bno}
+  	</select>
+  	
+  	<!-- 게시물 업데이트 -->
+  	<update id="updateBoard">
+  	UPDATE tbl_board1 SET title=#{title}, content=#{content}
+  	where bno = #{bno}
+  	</update>
+  	
+  	<!-- 코멘트 업데이트 -->
+  	<update id="updateComment">
+  	UPDATE tbl_board1 SET title=#{title}, content=#{content}
+  	WHERE bno_p = #{bno_p} AND bno_c #{bno_c} 
+  	</update>
+  	
+  	<!-- 게시물 삭제 -->
+  	<update id="delete">
+	UPDATE tbl_board1 SET visible='false'
+ 	WHERE bno = #{bno}
+  	</update>
+  	
+  	<select id="listAll" resultType="org.database.domain.BoardVO">
+  		<![CDATA[
+  		SELECT *
+  		FROM tbl_board1
+  		WHERE bno>0 AND bno_p IS NULL AND visible = 'TRUE'
+  		ORDER BY bno DESC, regdate DESC
+  		]]>
+  	</select>
+  	
+  	
+  </mapper>

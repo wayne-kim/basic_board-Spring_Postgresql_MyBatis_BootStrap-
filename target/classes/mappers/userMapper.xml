@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- http://www.mybatis.org/mybatis-3/ko/getting-started.html 참조 -->
+
+<mapper namespace="org.database.mapper.UserMapper">
+	<select id="getTime" resultType="String">
+		SELECT now()
+	</select>
+
+	<insert id="insertUser">
+		INSERT INTO tbl_user(
+		user_id, user_pw, position_id
+		) VALUES (#{user_id}, #{user_pw},
+		#{position_id});
+	</insert>
+
+	<select id="selectUser" resultType="org.database.domain.UserVO">
+		SELECT *
+		FROM tbl_user WHERE user_id = #{user_id}
+	</select>
+	
+	<select id="readWithPW" resultType="org.database.domain.UserVO">
+		SELECT * 
+		FROM tbl_user WHERE user_id = #{user_id} AND user_pw = #{user_pw}
+	</select>
+</mapper>
