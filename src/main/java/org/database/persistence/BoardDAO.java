@@ -5,6 +5,7 @@ import java.util.List;
 import org.database.domain.BoardVO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
+import org.database.domain.Criteria;
 
 public interface BoardDAO {
 
@@ -14,11 +15,9 @@ public interface BoardDAO {
   public void updateBoard(BoardVO vo) throws Exception;
   public void updateComment(BoardVO vo) throws Exception;
   public void delete(Integer bno) throws Exception;
-  public List<BoardVO> listAll() throws Exception;
   public List<BoardVO> listPage(int page) throws Exception;
-
-  //public List<BoardVO> listCriteria(Criteria cri) throws Exception;
-  //public int countPaging(Criteria cri) throws Exception;
+  public List<BoardVO> listCriteria(Criteria cri) throws Exception;
+  public int countPaging(Criteria cri) throws Exception;
   
   //use for dynamic sql
   //public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;

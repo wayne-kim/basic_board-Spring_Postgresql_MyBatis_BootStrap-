@@ -4,12 +4,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.stereotype.Service;
 import org.database.domain.BoardVO;
+import org.database.domain.Criteria;
 import org.database.persistence.BoardDAO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
 //import org.database.persistence.BoardDAO;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -48,21 +49,16 @@ public class BoardServiceImpl implements BoardService {
   }
   
   @Override
-  public List<BoardVO> listAll() throws Exception {
-    return dao.listAll();
+  public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+
+    return dao.listCriteria(cri);
   }
 
-//  @Override
-//  public List<BoardVO> listCriteria(Criteria cri) throws Exception {
-//
-//    return dao.listCriteria(cri);
-//  }
+  @Override
+  public int listCountCriteria(Criteria cri) throws Exception {
 
-//  @Override
-//  public int listCountCriteria(Criteria cri) throws Exception {
-//
-//    return dao.countPaging(cri);
-//  }
+    return dao.countPaging(cri);
+  }
 
 //  @Override
 //  public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {

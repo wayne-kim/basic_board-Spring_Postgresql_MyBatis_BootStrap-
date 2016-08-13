@@ -17,12 +17,12 @@
   	
   	<select id="read" resultType="BoardVO">
   		SELECT *
-  		FROM tbl_board1 WHERE bno = #{bno}
+  		FROM tbl_board1 WHERE bno = #{bno} AND visible = 'TRUE'
   	</select>
   	
   	<!-- 게시물 업데이트 -->
   	<update id="updateBoard">
-  	UPDATE tbl_board1 SET title=#{title}, content=#{content}
+  	UPDATE tbl_board1 SET title=#{title}, content=#{content}, revdate=now()
   	where bno = #{bno}
   	</update>
   	
@@ -38,14 +38,31 @@
  	WHERE bno = #{bno}
   	</update>
   	
-  	<select id="listAll" resultType="org.database.domain.BoardVO">
-  		<![CDATA[
-  		SELECT *
-  		FROM tbl_board1
-  		WHERE bno>0 AND bno_p IS NULL AND visible = 'TRUE'
-  		ORDER BY bno DESC, regdate DESC
-  		]]>
+  	<select id="listPage" resultType="BoardVO">
+  	<![CDATA[
+  	SELECT *
+  	FROM tbl_board1
+  	WHERE bno > 0 AND bno_p IS NULL AND visible = 'TRUE'
+  	ORDER BY bno desc, regdate desc
+  	LIMIT 10 OFFSET #{page}  
+  	]]>
   	</select>
   	
+  	<select id="listCriteria" resultType="BoardVO">
+  	<![CDATA[
+  	SELECT *
+  	FROM tbl_board1
+  	WHERE bno > 0 AND bno_p IS NULL AND visible = 'TRUE'
+  	ORDER BY bno DESC, regdate DESC
+  	LIMIT #{perPageNum} OFFSET #{pageStart}
+  	]]>
+  	</select>
   	
+  	<select id="countPaging" resultType="int">
+  	<![CDATA[
+  	SELECT count(bno)
+  	FROM tbl_board1
+  	WHERE bno > 0
+  	]]>
+  	</select>
   </mapper>

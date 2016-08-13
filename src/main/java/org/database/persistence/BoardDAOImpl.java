@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.database.domain.BoardVO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
+import org.database.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -22,11 +23,11 @@ public class BoardDAOImpl implements BoardDAO {
 	public void createBoard(BoardVO vo) throws Exception {
 		session.insert(namespace + ".createBoard", vo);
 	}
+
 	@Override
 	public void createComment(BoardVO vo) throws Exception {
 		session.insert(namespace + ".createComment", vo);
 	}
-
 
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
@@ -47,11 +48,6 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		return session.selectList(namespace + ".listAll");
-	}
-
-	@Override
 	public List<BoardVO> listPage(int page) throws Exception {
 		if (page <= 0) {
 			page = 1;
@@ -60,18 +56,23 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectList(namespace + ".listPage", page);
 	}
 
-	/*
-	 * @Override public List<BoardVO> listCriteria(Criteria cri) throws
-	 * Exception { return session.selectList(namespace + ".listCriteria", cri);
-	 * }
-	 * 
-	 * @Override public int countPaging(Criteria cri) throws Exception { return
-	 * session.selectOne(namespace + ".countPaging", cri); }
-	 * 
-	 * @Override public List<BoardVO> listSearch(SearchCriteria cri) throws
-	 * Exception { return session.selectList(namespace + ".listSearch", cri); }
-	 * 
-	 * @Override public int listSearchCount(SearchCriteria cri) throws Exception
-	 * { return session.selectOne(namespace + ".listSearchCount", cri); }
-	 */
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+		return session.selectOne(namespace+".countPaging", cri);
+	}
+	
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+		return session.selectList(namespace + ".listCriteria", cri);
+	}
+
+
+//	@Override
+//	public int countPaging(Criteria cri) throws Exception {
+//		return session.selectOne(namespace + ".countPaging", cri);
+//	}
+	// @Override public List<BoardVO> listSearch(SearchCriteria cri) throws
+	// Exception { return session.selectList(namespace + ".listSearch", cri); }
+	// @Override public int listSearchCount(SearchCriteria cri) throws Exception
+	// { return session.selectOne(namespace + ".listSearchCount", cri); }
 }

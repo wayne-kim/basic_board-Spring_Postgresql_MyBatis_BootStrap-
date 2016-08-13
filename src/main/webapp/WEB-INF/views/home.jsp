@@ -23,6 +23,7 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
+</div>
 
 
 <%@include file="include/footer.jsp"%>

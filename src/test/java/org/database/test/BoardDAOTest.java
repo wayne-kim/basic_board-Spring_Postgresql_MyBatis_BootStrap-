@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 import org.database.domain.BoardVO;
+import org.database.domain.Criteria;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
 import org.database.persistence.BoardDAO;
@@ -26,21 +27,78 @@ public class BoardDAOTest {
 
 	private static Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
 
+	@Test
+	public void testURI2() throws Exception {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.path("/{moduel}/{page}")
+				.queryParam("bno", "55")
+				.queryParam("prePageNum",20)
+				.build()
+				.expand("board1","read")
+				.encode();
+		
+		logger.info(uriComponents.toString());
+	}
+	
+	/*
+	@Test
+	public void testURI() throws Exception {
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.path("/board1/read")
+				.queryParam("bno", 50)
+				.queryParam("perPageNum", 20)
+				.build();
+		
+		logger.info(uriComponents.toString());
+	}
+	*/
+	
+	/*
+	@Test
+	public void testListCriteria() throws Exception{
+		Criteria cri = new Criteria();
+		cri.setPage(1);
+		cri.setPerPageNum(10);
+		
+		List<BoardVO> list = dao.listCriteria(cri);
+		for(BoardVO boardVO : list){
+			logger.info(boardVO.toString());
+		}
+	}
+	*/
+	
+	/*
+	@Test
+	public void testListPage() throws Exception{
+		int page = 2;
+		
+		List<BoardVO> list = dao.listPage(page);
+		
+		for(BoardVO boardVO : list){
+			logger.info(boardVO.toString());
+		}
+	}
+	*/
+	
 	/*
 	@Test
 	public void testCreate() throws Exception {
 		BoardVO board = new BoardVO();
-		board.setTitle("새로운 글을 넣습니다.");
-		board.setContent("새로운 글을 넣습니다.");
-		board.setWriter("sumel014@naver.com");
-		dao.create(board);
+		
+		for(int i=1000;i<1000000;i++){
+			board.setTitle("TEST"+i);
+			board.setContent("TEST 글을 "+i+"번째 입력");
+			dao.createBoard(board);
+		}
 	}
 	*/
-	
+
+	/*
 	@Test
 	public void testRead() throws Exception {
 		logger.info(dao.read(1).toString());
 	}
+	*/
 	/*
 	@Test
 	public void testUpdate1() throws Exception {
@@ -66,10 +124,12 @@ public class BoardDAOTest {
 	}
 	*/
 	
+	/*
 	@Test
 	public void testDelete() throws Exception {
 		dao.delete(1);
 	}
+	*/
 
 //	@Test
 //	public void testListPage() throws Exception {
