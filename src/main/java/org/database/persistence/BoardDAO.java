@@ -6,6 +6,7 @@ import org.database.domain.BoardVO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
 import org.database.domain.Criteria;
+import org.database.domain.SearchCriteria;
 
 public interface BoardDAO {
 
@@ -20,7 +21,7 @@ public interface BoardDAO {
   public int countPaging(Criteria cri) throws Exception;
   
   //use for dynamic sql
-  //public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;
-  //public int listSearchCount(SearchCriteria cri)throws Exception;
+  public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;
+  public int listSearchCount(SearchCriteria cri)throws Exception;
 
 }

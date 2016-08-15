@@ -11,18 +11,18 @@
 			<!-- general form elements -->
 			<div class="box box-primary">
 				<div class="box-header">
-					<h3 class="box-title">REGISTER BOARD</h3>
+					<h3 class="box-title">새 게시물 쓰기</h3>
 				</div>
 				<!-- /.box-header -->
 
 				<form role="form" method="post" action="registerBoard">
 					<div class="box-body">
 						<div class="form-group">
-							<label for="exampleInputEmail1">Title</label> <input type="text"
+							<label for="exampleInputEmail1">제목</label> <input type="text"
 								name='title' class="form-control" placeholder="Enter Title">
 						</div>
 						<div class="form-group">
-							<label for="exampleInputPassword1">Content</label>
+							<label for="exampleInputPassword1">내용</label>
 							<textarea class="form-control" name="content" rows="3"
 								placeholder="Enter ..."></textarea>
 						</div>
@@ -36,7 +36,8 @@
 					<!-- /.box-body -->
 
 					<div class="box-footer">
-						<button type="submit" class="btn btn-primary">Submit</button>
+						<button type="submit" class="btn btn-primary">제출</button>
+						<a href="/board1/list" class="btn btn-warning">목록</a>
 					</div>
 				</form>
 

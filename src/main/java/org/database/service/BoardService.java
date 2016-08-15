@@ -6,6 +6,7 @@ import org.database.domain.BoardVO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
 import org.database.domain.Criteria;
+import org.database.domain.SearchCriteria;
 
 public interface BoardService {
 
@@ -17,6 +18,6 @@ public interface BoardService {
   public void remove(Integer bno) throws Exception;
   public List<BoardVO> listCriteria(Criteria cri) throws Exception;
   public int listCountCriteria(Criteria cri) throws Exception;
-  //public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception;
-  //public int listSearchCount(SearchCriteria cri) throws Exception;
+  public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception;
+  public int listSearchCount(SearchCriteria cri) throws Exception;
 }

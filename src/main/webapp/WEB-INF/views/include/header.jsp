@@ -375,9 +375,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="http://localhost:8080/board1/listPage"><i class="fa fa-circle-o"></i> 게시판</a></li>
-                <li><a href="http://localhost:8080/login/doorFront"><i class="fa fa-circle-o"></i> 로그인</a></li>
-                <li><a href="editors.html"><i class="fa fa-circle-o"></i> Editors</a></li>
+                <li class="active"><a href="http://localhost:8080/board1/list"><i class="fa fa-circle-o"></i> Board</a></li>
+                <li><a href="http://localhost:8080/login/doorFront"><i class="fa fa-circle-o"></i> Login</a></li>
+                <li><a href="editors.html"><i class="fa fa-circle-o"></i> Business Log</a></li>
               </ul>
             </li>
             <li class="treeview">

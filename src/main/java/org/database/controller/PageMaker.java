@@ -1,6 +1,7 @@
 package org.database.controller;
 
 import org.database.domain.Criteria;
+import org.database.domain.SearchCriteria;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -80,7 +81,6 @@ public class PageMaker {
     return uriComponents.toUriString();
   }
   
-  /*
   public String makeSearch(int page){
     
     UriComponents uriComponents =
@@ -93,5 +93,4 @@ public class PageMaker {
     
     return uriComponents.toUriString();
   } 
-  */
 }

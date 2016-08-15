@@ -5,11 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
 import org.database.domain.BoardVO;
 //import org.database.domain.Criteria;
 //import org.database.domain.SearchCriteria;
 import org.database.domain.Criteria;
+import org.database.domain.SearchCriteria;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO {
@@ -19,6 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	private static String namespace = "org.database.mapper.BoardMapper";
 
+	// 생성
 	@Override
 	public void createBoard(BoardVO vo) throws Exception {
 		session.insert(namespace + ".createBoard", vo);
@@ -29,11 +31,13 @@ public class BoardDAOImpl implements BoardDAO {
 		session.insert(namespace + ".createComment", vo);
 	}
 
+	// 상세보기
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
 		return session.selectOne(namespace + ".read", bno);
 	}
 
+	// 수정
 	public void updateBoard(BoardVO vo) throws Exception {
 		session.update(namespace + ".updateBoard", vo);
 	}
@@ -42,11 +46,13 @@ public class BoardDAOImpl implements BoardDAO {
 		session.update(namespace + ".updateBoard", vo);
 	}
 
+	// 삭제
 	@Override
 	public void delete(Integer bno) throws Exception {
 		session.delete(namespace + ".delete", bno);
 	}
 
+	// 목록
 	@Override
 	public List<BoardVO> listPage(int page) throws Exception {
 		if (page <= 0) {
@@ -57,22 +63,24 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public int countPaging(Criteria cri) throws Exception {
-		return session.selectOne(namespace+".countPaging", cri);
-	}
-	
-	@Override
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 		return session.selectList(namespace + ".listCriteria", cri);
 	}
 
+	// 목록 페이징
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+		return session.selectOne(namespace + ".countPaging", cri);
+	}
 
-//	@Override
-//	public int countPaging(Criteria cri) throws Exception {
-//		return session.selectOne(namespace + ".countPaging", cri);
-//	}
-	// @Override public List<BoardVO> listSearch(SearchCriteria cri) throws
-	// Exception { return session.selectList(namespace + ".listSearch", cri); }
-	// @Override public int listSearchCount(SearchCriteria cri) throws Exception
-	// { return session.selectOne(namespace + ".listSearchCount", cri); }
+	// 검색
+	@Override
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace + ".listSearch", cri);
+	}
+
+	@Override
+	public int listSearchCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace + ".listSearchCount", cri);
+	}
 }

@@ -4,6 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.database.domain.BoardVO;
+import org.database.domain.SearchCriteria;
+//import org.database.domain.Criteria;
+//import org.database.domain.SearchCriteria;
+import org.database.persistence.BoardDAO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,11 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.database.domain.BoardVO;
-import org.database.domain.Criteria;
-//import org.database.domain.Criteria;
-//import org.database.domain.SearchCriteria;
-import org.database.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/**/*.xml" })
@@ -27,18 +27,18 @@ public class BoardDAOTest {
 
 	private static Logger logger = LoggerFactory.getLogger(BoardDAOTest.class);
 
-	@Test
-	public void testURI2() throws Exception {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.path("/{moduel}/{page}")
-				.queryParam("bno", "55")
-				.queryParam("prePageNum",20)
-				.build()
-				.expand("board1","read")
-				.encode();
-		
-		logger.info(uriComponents.toString());
-	}
+//	@Test
+//	public void testURI2() throws Exception {
+//		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+//				.path("/{moduel}/{page}")
+//				.queryParam("bno", "55")
+//				.queryParam("prePageNum",20)
+//				.build()
+//				.expand("board1","read")
+//				.encode();
+//		
+//		logger.info(uriComponents.toString());
+//	}
 	
 	/*
 	@Test
@@ -179,25 +179,25 @@ public class BoardDAOTest {
 	// logger.info(uriComponents.toString());
 	// }
 
-	// @Test
-	// public void testDynamic1() throws Exception {
-	//
-	// SearchCriteria cri = new SearchCriteria();
-	// cri.setPage(1);
-	// cri.setKeyword("글");
-	// cri.setSearchType("t");
-	//
-	// logger.info("=====================================");
-	//
-	// List<BoardVO> list = dao.listSearch(cri);
-	//
-	// for (BoardVO boardVO : list) {
-	// logger.info(boardVO.getBno() + ": " + boardVO.getTitle());
-	// }
-	//
-	// logger.info("=====================================");
-	//
-	// logger.info("COUNT: " + dao.listSearchCount(cri));
-	// }
+	 @Test
+	 public void testDynamic1() throws Exception {
+	 SearchCriteria cri = new SearchCriteria();
+	 cri.setPage(1);
+	 cri.setPerPageNum(10);;
+	 cri.setKeyword("test");
+	 cri.setSearchType("ALL");
+
+		logger.info("=====================================");
+
+		List<BoardVO> list = dao.listSearch(cri);
+
+		for (BoardVO boardVO : list) {
+			logger.info(boardVO.getBno() + ": " + boardVO.getTitle());
+		}
+
+		logger.info("=====================================");
+
+		logger.info("COUNT: " + dao.listSearchCount(cri));
+	}
 
 }
