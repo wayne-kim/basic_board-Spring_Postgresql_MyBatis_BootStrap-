@@ -35,6 +35,6 @@ public class LoginController {
 		
 		service.doorKnock(loginVO);
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/board1/list";
+		return "redirect:/board/list";
 	}
 }

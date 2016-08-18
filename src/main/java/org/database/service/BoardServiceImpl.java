@@ -20,13 +20,8 @@ public class BoardServiceImpl implements BoardService {
 	private BoardDAO dao;
 
 	@Override
-	public void registBoard(BoardVO board) throws Exception {
-		dao.createBoard(board);
-	}
-
-	@Override
-	public void registComment(BoardVO board) throws Exception {
-		dao.createComment(board);
+	public void regist(BoardVO board) throws Exception {
+		dao.create(board);
 	}
 
 	@Override
@@ -35,13 +30,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void modifyBoard(BoardVO board) throws Exception {
-		dao.updateBoard(board);
-	}
-
-	@Override
-	public void modifyComment(BoardVO board) throws Exception {
-		dao.updateComment(board);
+	public void modify(BoardVO board) throws Exception {
+		dao.update(board);
 	}
 
 	@Override

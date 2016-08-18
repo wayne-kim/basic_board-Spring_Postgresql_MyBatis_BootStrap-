@@ -1,9 +1,18 @@
 package org.database.domain;
 
 public class LoginVO {
+	private String user_num;
 	private String user_id;
 	private String user_pw;
 	private String alias;
+	
+	
+	public String getUser_num() {
+		return user_num;
+	}
+	public void setUser_num(String user_num) {
+		this.user_num = user_num;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -24,6 +33,6 @@ public class LoginVO {
 	}
 	@Override
 	public String toString() {
-		return "LoginVO [user_id=" + user_id + ", user_pw=" + user_pw + ", alias=" + alias + "]";
+		return "LoginVO [user_num=" + user_num + ", user_id=" + user_id + ", user_pw=" + user_pw + ", alias=" + alias + "]";
 	}
 }

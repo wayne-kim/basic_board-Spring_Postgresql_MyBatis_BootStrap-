@@ -22,13 +22,8 @@ public class BoardDAOImpl implements BoardDAO {
 
 	// 생성
 	@Override
-	public void createBoard(BoardVO vo) throws Exception {
-		session.insert(namespace + ".createBoard", vo);
-	}
-
-	@Override
-	public void createComment(BoardVO vo) throws Exception {
-		session.insert(namespace + ".createComment", vo);
+	public void create(BoardVO vo) throws Exception {
+		session.insert(namespace + ".create", vo);
 	}
 
 	// 상세보기
@@ -38,12 +33,9 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	// 수정
-	public void updateBoard(BoardVO vo) throws Exception {
-		session.update(namespace + ".updateBoard", vo);
-	}
-
-	public void updateComment(BoardVO vo) throws Exception {
-		session.update(namespace + ".updateBoard", vo);
+	@Override
+	public void update(BoardVO vo) throws Exception {
+		session.update(namespace + ".update", vo);
 	}
 
 	// 삭제

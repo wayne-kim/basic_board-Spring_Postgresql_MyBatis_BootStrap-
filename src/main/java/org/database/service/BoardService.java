@@ -10,11 +10,9 @@ import org.database.domain.SearchCriteria;
 
 public interface BoardService {
 
-  public void registBoard(BoardVO board) throws Exception;
-  public void registComment(BoardVO board) throws Exception;
+  public void regist(BoardVO board) throws Exception;
   public BoardVO read(Integer bno) throws Exception;
-  public void modifyBoard(BoardVO board) throws Exception;
-  public void modifyComment(BoardVO board) throws Exception;
+  public void modify(BoardVO board) throws Exception;
   public void remove(Integer bno) throws Exception;
   public List<BoardVO> listCriteria(Criteria cri) throws Exception;
   public int listCountCriteria(Criteria cri) throws Exception;

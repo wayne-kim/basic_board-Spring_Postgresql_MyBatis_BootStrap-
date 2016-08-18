@@ -15,7 +15,7 @@
 				</div>
 				<!-- /.box-header -->
 
-				<form role="form" method="post" action="registerBoard">
+				<form role="form" method="post" action="register">
 					<div class="box-body">
 						<div class="form-group">
 							<label for="exampleInputEmail1">제목</label> <input type="text"
@@ -26,18 +26,16 @@
 							<textarea class="form-control" name="content" rows="3"
 								placeholder="Enter ..."></textarea>
 						</div>
-						<!-- 
 						<div class="form-group">
-							<label for="exampleInputEmail1">Writer</label> <input type="text"
+							<label for="exampleInputEmail1">글쓴이</label> <input type="text"
 								name="writer" class="form-control" placeholder="Enter Writer">
 						</div>
-						 -->
 					</div>
 					<!-- /.box-body -->
 
 					<div class="box-footer">
 						<button type="submit" class="btn btn-primary">제출</button>
-						<a href="/board1/list" class="btn btn-warning">목록</a>
+						<a href="/board/list" class="btn btn-warning">목록</a>
 					</div>
 				</form>
 

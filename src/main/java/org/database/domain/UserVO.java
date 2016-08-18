@@ -3,15 +3,16 @@ package org.database.domain;
 import org.json.JSONObject;
 
 public class UserVO {
-	private Integer id;
+	private Integer user_num;
 	private String user_id;
 	private String user_pw;
 	private Character position_id;
-	public Integer getId() {
-		return id;
+	
+	public Integer getUser_num() {
+		return user_num;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setUser_num(Integer user_num) {
+		this.user_num = user_num;
 	}
 	public String getUser_id() {
 		return user_id;
@@ -33,7 +34,6 @@ public class UserVO {
 	}
 	@Override
 	public String toString() {
-		return "UserVO [id=" + id + ", user_id=" + user_id + ", user_pw=" + user_pw + ", position_id=" + position_id + "]";
+		return "UserVO [user_num=" + user_num + ", user_id=" + user_id + ", user_pw=" + user_pw + ", position_id=" + position_id + "]";
 	}
-	
 }

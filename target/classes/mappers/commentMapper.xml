@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.database.mapper.CommentMapper">
+	<select id="list" resultType="CommentVO">
+		SELECT *
+		FROM tbl_board_comment WHERE bno = #{bno} AND visible = 'TRUE'
+		ORDER BY cno DESC
+	</select>
+	
+	<insert id="create">
+		INSERT INTO tbl_board_comment (bno, content, writer)
+		VALUES(#{bno}, #{content}, #{writer})
+	</insert>
+	
+	<update id="update">
+		UPDATE tbl_board_comment SET content=#{content}, revdate=now()
+		where cno = #{cno}
+	</update>
+
+	<update id="delete">
+		UPDATE tbl_board_comment SET visible='false'
+		WHERE cno = #{cno}
+	</update>
+	
+	<select id="listPage" resultType="COmmentVO">
+		SELECT *
+		FROM tbl_board_comment
+		WHERE bno = #{bno}
+		ORDER BY cno DESC
+		LIMIT #{cri.perPageNum} OFFSET #{cir.pageStart} 
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT count(bno)
+		FROM tbl_board_comment 
+		WHERE bno = #{bno}
+	</select>
+</mapper>

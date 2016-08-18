@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/board1/*")
+@RequestMapping("/board/*")
 public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -31,24 +31,15 @@ public class BoardController {
 		logger.info("register get ...........");
 	}
 
-	@RequestMapping(value = "/registerBoard", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registBoardPOST(BoardVO board, /* Model model */ RedirectAttributes rttr) throws Exception {
 		logger.info("board regist post ...........");
 		logger.info(board.toString());
 
-		service.registBoard(board);
+		service.regist(board);
 		
 		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/board1/list";
-	}
-
-	@RequestMapping(value = "/registerComment", method = RequestMethod.POST)
-	public String registCommentPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
-		logger.info("commnet regist post ...........");
-		logger.info(board.toString());
-		service.registComment(board);
-		rttr.addFlashAttribute("msg", "success");
-		return "redirect:/board1/list";
+		return "redirect:/board/list";
 	}
 
 	// 목록
@@ -84,14 +75,7 @@ public class BoardController {
 
 		rttr.addFlashAttribute("msg", "SUCCESS");
 
-		return "redirect:/board1/list";
-	}
-
-	@RequestMapping(value = "/removeComment", method = RequestMethod.POST)
-	public String removeComment(@RequestParam("bno") int bno, RedirectAttributes rttr) throws Exception {
-		service.remove(bno);
-		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/board1/read?bno=" + bno;
+		return "redirect:/board/list";
 	}
 
 	// 수정
@@ -103,7 +87,7 @@ public class BoardController {
 	@RequestMapping(value = "/modifyPage", method = RequestMethod.POST)
 	public String modifyPagingPOST(BoardVO board, SearchCriteria cri, RedirectAttributes rttr) throws Exception {
 		logger.info(cri.toString());
-		service.modifyBoard(board);
+		service.modify(board);
 
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
@@ -114,15 +98,6 @@ public class BoardController {
 		
 		logger.info(rttr.toString());
 		
-		return "redirect:/board1/list";
+		return "redirect:/board/list";
 	}
-
-	@RequestMapping(value = "/modifyComment", method = RequestMethod.POST)
-	public String modifyComment(BoardVO board, RedirectAttributes rttr) throws Exception {
-		logger.info("mod Comment post............");
-		service.modifyComment(board);
-		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/board1/list";
-	}
-
 }

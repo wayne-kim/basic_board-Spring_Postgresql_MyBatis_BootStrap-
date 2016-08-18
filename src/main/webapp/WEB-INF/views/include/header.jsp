@@ -375,9 +375,9 @@
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="http://localhost:8080/board1/list"><i class="fa fa-circle-o"></i> Board</a></li>
-                <li><a href="http://localhost:8080/login/doorFront"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="editors.html"><i class="fa fa-circle-o"></i> Business Log</a></li>
+                <li class="active"><a href="/board/list"><i class="fa fa-circle-o"></i> Board</a></li>
+                <li><a href="/login/doorFront"><i class="fa fa-circle-o"></i> Login</a></li>
+                <li><a href="/businessLog/list"><i class="fa fa-circle-o"></i> Business Log</a></li>
               </ul>
             </li>
             <li class="treeview">

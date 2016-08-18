@@ -55,19 +55,19 @@ $(document).ready(function(){
 	console.log(formObj);
 	
 	$(".btn-warning").on("click", function(){
-		formObj.attr("action", "/board1/modifyPage");
+		formObj.attr("action", "/board/modifyPage");
 		formObj.attr("method", "get");		
 		formObj.submit();
 	});
 	
 	$(".btn-danger").on("click", function(){
-		formObj.attr("action", "/board1/removePage");
+		formObj.attr("action", "/board/removePage");
 		formObj.submit();
 	});
 	
 	$(".btn-primary").on("click", function(){
 		formObj.attr("method", "get");
-		formObj.attr("action", "/board1/list");
+		formObj.attr("action", "/board/list");
 		formObj.submit();
 	});
 	

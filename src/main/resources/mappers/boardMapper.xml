@@ -4,40 +4,27 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.database.mapper.BoardMapper">
-	<!-- 비회원 , 로그인 처리 후 동적 쿼리로 회원 생성도 지원하자 -->
-	<insert id="createBoard">
-		INSERT INTO tbl_board1 (title, content)
-		VALUES(#{title}, #{content})
-	</insert>
-
-	<insert id="createComment">
-		INSERT INTO tbl_board1 (content)
-		VALUES(#{content})
+	<insert id="create">
+		INSERT INTO tbl_board (title, content, writer)
+		VALUES(#{title}, #{content}, #{writer})
 	</insert>
 
 	<select id="read" resultType="BoardVO">
 		SELECT *
-		FROM tbl_board1 WHERE bno =
+		FROM tbl_board WHERE bno =
 		#{bno} AND visible = 'TRUE'
 	</select>
 
 	<!-- 게시물 업데이트 -->
-	<update id="updateBoard">
-		UPDATE tbl_board1 SET title=#{title},
+	<update id="update">
+		UPDATE tbl_board SET title=#{title},
 		content=#{content}, revdate=now()
 		where bno = #{bno}
 	</update>
 
-	<!-- 코멘트 업데이트 -->
-	<update id="updateComment">
-		UPDATE tbl_board1 SET title=#{title},
-		content=#{content}
-		WHERE bno_p = #{bno_p} AND bno_c #{bno_c}
-	</update>
-
 	<!-- 게시물 삭제 -->
 	<update id="delete">
-		UPDATE tbl_board1 SET visible='false'
+		UPDATE tbl_board SET visible='false'
 		WHERE bno =
 		#{bno}
 	</update>
@@ -45,21 +32,17 @@
 	<select id="listPage" resultType="BoardVO">
   	<![CDATA[
   	SELECT *
-  	FROM tbl_board1
+  	FROM tbl_board
   	WHERE bno > 0 AND visible = 'TRUE'
   	ORDER BY bno desc, regdate desc
   	LIMIT 10 OFFSET #{page}  
   	]]>
 	</select>
 
-	<!-- <select id="listCriteria" resultType="BoardVO"> <![CDATA[ SELECT * 
-		FROM tbl_board1 WHERE bno > 0 AND bno_p IS NULL AND visible = 'TRUE' ORDER 
-		BY bno DESC, regdate DESC LIMIT #{perPageNum} OFFSET #{pageStart} ]]> </select> -->
-
 	<select id="countPaging" resultType="int">
   	<![CDATA[
   	SELECT count(bno)
-  	FROM tbl_board1
+  	FROM tbl_board
   	WHERE bno > 0 AND visible = 'TRUE'
   	]]>
 	</select>
@@ -67,7 +50,7 @@
 	<select id="listSearch" resultType="BoardVO">
   	<![CDATA[
   	SELECT *
-  	FROM tbl_board1 WHERE (bno > 0 AND visible = 'TRUE')
+  	FROM tbl_board WHERE (bno > 0 AND visible = 'TRUE')
   	]]>
 
 	<include refid="search"></include>
@@ -111,7 +94,7 @@
 	<select id="listSearchCount" resultType="int">
 	<![CDATA[
 	SELECT count(bno)
-	FROM tbl_board1
+	FROM tbl_board
 	WHERE bno > 0 AND visible = 'TRUE'
 	]]>
 		<include refid="search"></include>
