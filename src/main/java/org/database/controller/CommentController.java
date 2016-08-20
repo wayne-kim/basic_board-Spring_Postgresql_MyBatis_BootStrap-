@@ -102,7 +102,7 @@ public class CommentController {
 			
 			int commnetCount = service.count(bno);
 			pageMaker.setTotalCount(commnetCount);
-			
+			System.out.println(pageMaker.toString());
 			map.put("pageMaker", pageMaker);
 			
 			entity = new ResponseEntity<Map<String, Object>>(map, HttpStatus.OK);

@@ -21,21 +21,21 @@
 	</update>
 
 	<update id="delete">
-		UPDATE tbl_board_comment SET visible='false'
+		UPDATE tbl_board_comment SET visible='FALSE'
 		WHERE cno = #{cno}
 	</update>
 	
-	<select id="listPage" resultType="COmmentVO">
+	<select id="listPage" resultType="CommentVO">
 		SELECT *
 		FROM tbl_board_comment
-		WHERE bno = #{bno}
+		WHERE bno = #{bno} AND visible = 'TRUE'
 		ORDER BY cno DESC
-		LIMIT #{cri.perPageNum} OFFSET #{cir.pageStart} 
+		LIMIT #{cri.perPageNum} OFFSET #{cri.pageStart} 
 	</select>
 	
 	<select id="count" resultType="int">
 		SELECT count(bno)
 		FROM tbl_board_comment 
-		WHERE bno = #{bno}
+		WHERE bno = #{bno} AND visible='TRUE'
 	</select>
 </mapper>
