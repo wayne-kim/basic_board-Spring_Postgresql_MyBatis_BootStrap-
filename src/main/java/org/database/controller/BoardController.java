@@ -57,7 +57,7 @@ public class BoardController {
 		
 		model.addAttribute("pageMaker", pageMaker);
 	}
-
+	
 	// 읽기
 	@RequestMapping(value = "/readPage", method = RequestMethod.GET)
 	public void read(@RequestParam("bno") int bno, @ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {

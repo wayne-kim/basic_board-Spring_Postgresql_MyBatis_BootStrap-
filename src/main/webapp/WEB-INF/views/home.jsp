@@ -16,6 +16,7 @@
 				<div class="box-header with-border">
 					<h3 class="box-title">HOME PAGE</h3>
 				</div>
+				<h1>${serverTime}</h1>
 			</div>
 		</div>
 		<!--/.col (left) -->
