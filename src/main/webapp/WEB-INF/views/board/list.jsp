@@ -13,7 +13,7 @@
 			<!-- general form elements -->
 
 
-			<div class="box">
+			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">BOARD</h3>
 				</div>
