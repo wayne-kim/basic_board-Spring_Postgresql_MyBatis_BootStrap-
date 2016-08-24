@@ -22,5 +22,5 @@ https://www.postgresql.org/download/>
   
 Detail environment settting guide
 =============  
-#JDK 설치
+###JDK 설치
 >너무 간단해서 생략, 환경설정하는 거 잊지마세요.
