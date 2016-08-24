@@ -19,4 +19,19 @@ class BusinessLogServiceImpl implements BusinessLogService {
 		return dao.toDayBusinessLog();
 	}
 
+	@Override
+	public void createBusinessLog(BusinessLogVO vo) throws Exception {
+		dao.createBusinessLog(vo);
+	}
+
+	@Override
+	public void updateBusinessLog(BusinessLogVO vo) throws Exception {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void deleteBusinessLog(Integer lno, Integer user_num) throws Exception {
+		// TODO Auto-generated method stub
+	}
+
 }

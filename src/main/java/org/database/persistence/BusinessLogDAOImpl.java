@@ -21,4 +21,21 @@ public class BusinessLogDAOImpl implements BusinessLogDAO {
 		return session.selectList(namespace+".todayBusinessLogs");
 	}
 
+	@Override
+	public void createBusinessLog(BusinessLogVO vo) throws Exception {
+		session.insert(namespace+".createBusinessLog", vo);
+	}
+
+	@Override
+	public void updateBusinessLog(BusinessLogVO vo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteBusinessLog(Integer lno, Integer user_num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

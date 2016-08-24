@@ -26,12 +26,12 @@
 	<update id="updateBusinessLog">
 		UPDATE tbl_business_log
    		SET revdate= now(), log=#{log}
- 		WHERE user_num = #{user_num} AND lno = #{lno}
+ 		WHERE lno = #{lno} AND user_num = #{user_num} 
 	</update>
 	
 	<update id="deleteBusinessLog">
 		UPDATE tbl_business_log
    		SET revdate= now() , visible= FALSE
- 		WHERE lno = #{lno};
+ 		WHERE lno = #{lno} AND user_num #{user_num}
 	</update>
 </mapper>

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 @RequestMapping("/businessLog/*")
@@ -24,11 +25,8 @@ public class BusinessLogController {
 	//목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public void listGET(Model model) throws Exception {
-		logger.info("list get ...........");
-		
-//		List<BusinessLogVO> vos = service.todayBusinessLogs();
-//		System.out.println(vos.get(0).toString());
-//		System.out.println(vos.get(1).toString());
-//		model.addAttribute("businessLog", );
+		logger.info("list");
 	}
+	
+	
 }

@@ -13,7 +13,7 @@ public class BusinessLogVO {
 	Integer user_num;
 	
 	//사용자 입력 값
-	JSONObject log;
+	String log;
 	Boolean result;
 
 	public Integer getLno() {
@@ -52,13 +52,12 @@ public class BusinessLogVO {
 	public void setUser_num(Integer user_num) {
 		this.user_num = user_num;
 	}
-	public JSONObject getLog() {
+	public String getLog() {
 		return log;
 	}
-	public void setLog(JSONObject log) {
+	public void setLog(String log) {
 		this.log = log;
 	}
-	@Override
 	public String toString() {
 		return "BusinessLogVO [lno=" + lno + ", regdate=" + regdate + ", revdate=" + revdate + ", visible=" + visible + ", user_num=" + user_num + ", log=" + log + ", result="
 				+ result + "]";
