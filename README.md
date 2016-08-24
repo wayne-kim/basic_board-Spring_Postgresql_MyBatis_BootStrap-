@@ -1,6 +1,7 @@
 # basic_board-Spring_Postgresql_MyBatis_BootStrap-
 
 My development environment
+=============
 OS  : windows 10 pro 64bit
 JDK :1.8.0_101
 IDE : spring-tool-suite-3.8.0.RELEASE-e4.6-win32-x86_64 사용
@@ -17,4 +18,3 @@ Set environment
 ㄴ https://www.postgresql.org/download/
 4.tomcat 다운로드(주의,8.5 버전 아니고! 8.0 버전입니다.!!!)
 ㄴhttp://tomcat.apache.org/download-80.cgi
-
