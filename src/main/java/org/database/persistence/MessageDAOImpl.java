@@ -12,7 +12,7 @@ public class MessageDAOImpl implements MessageDAO {
 	@Inject
 	private SqlSession session;
 	
-	private static String namespace = "org.database.mapper.MessageMaper";
+	private static String namespace = "org.database.mapper.MessageMapper";
 	
 	public void create(MessageVO vo) throws Exception {
 		session.insert(namespace+".create", vo);

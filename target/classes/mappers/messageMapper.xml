@@ -7,7 +7,7 @@
 
 <mapper namespace="org.database.mapper.MessageMapper">
 	<insert id="create">
-		INSERT INTO tbl_message (targetid, sender, message)
+		INSERT INTO tbl_message (target_id, sender, message)
 		VALUES (#{target_id}, #{sender}, #{message})
 	</insert>
 	

@@ -36,10 +36,15 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"></constructor-arg>
 	</bean>
 	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
 	<context:component-scan base-package="org.database.persistence">
 	</context:component-scan>
 	<context:component-scan base-package="org.database.service">
 	</context:component-scan>
+	<context:component-scan base-package="org.database.aop">
+	</context:component-scan>
 	
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<aop:config></aop:config>
+	
 </beans>
