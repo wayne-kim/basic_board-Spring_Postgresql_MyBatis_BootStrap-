@@ -19,3 +19,6 @@ Set environment
 #####<https://www.postgresql.org/download/>
 #####4.tomcat 다운로드(주의,8.5 버전 아니고! 8.0 버전입니다.!!!)
 #####<http://tomcat.apache.org/download-80.cgi>
+
+Detail environment settting guide
+=============
