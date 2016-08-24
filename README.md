@@ -11,14 +11,16 @@ DB  : postgresql-9.4.8-1
   
 Set environment
 =============
-1.JDK 설치  
+1. JDK 설치  
 <http://www.oracle.com/technetwork/java/javase/8u101-relnotes-3021761.html>  
-2.STS 다운로드  
+2. STS 다운로드  
 ㄴhttps://spring.io/tools/sts/all  
-3.postgresql 설치  
+3. postgresql 설치  
 https://www.postgresql.org/download/>  
-4.tomcat 다운로드(주의,8.5 버전 아니고! 8.0 버전입니다.!!!)  
+4. tomcat 다운로드(주의,8.5 버전 아니고! 8.0 버전입니다.!!!)  
 <http://tomcat.apache.org/download-80.cgi>  
   
 Detail environment settting guide
 =============  
+#JDK 설치
+>너무 간단해서 생략, 환경설정하는 거 잊지마세요.
