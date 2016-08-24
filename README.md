@@ -1,5 +1,3 @@
-# basic_board-Spring_Postgresql_MyBatis_BootStrap-
-
 My development environment
 =============
 OS  : windows 10 pro 64bit  

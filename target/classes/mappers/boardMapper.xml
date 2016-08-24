@@ -24,7 +24,7 @@
 
 	<!-- 게시물 삭제 -->
 	<update id="delete">
-		UPDATE tbl_board SET visible='false'
+		UPDATE tbl_board SET visible='FALSE'
 		WHERE bno =
 		#{bno}
 	</update>

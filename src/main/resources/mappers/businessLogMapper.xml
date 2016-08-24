@@ -6,9 +6,32 @@
 <!-- http://www.mybatis.org/mybatis-3/ko/getting-started.html 참조 -->
 
 <mapper namespace="org.database.mapper.BusinessLogMapper">
+	<insert id="createBusinessLog">
+		INSERT INTO tbl_business_log(regdate, user_num, log)
+    	VALUES ( now(), #{user_num}, #{log});
+	</insert>
+	
 	<select id="todayBusinessLogs" resultType="BusinessLogVO">
 		SELECT *
 		FROM tbl_business_log
-		WHERE to_char(regdate, 'YYYY-MM-DD') = to_char(now(), 'YYYY-MM-DD');
+		WHERE to_char(regdate, 'YYYY-MM-DD') = to_char(now(), 'YYYY-MM-DD') AND visible = 'TRUE'
 	</select>
+	
+	<select id="seatchBusinessLogs" resultType="BusinessLogVO">
+		SELECT *
+		FROM tbl_business_log
+		.... 동적 쿼리를 이용하여 생성
+	</select>
+	
+	<update id="updateBusinessLog">
+		UPDATE tbl_business_log
+   		SET revdate= now(), log=#{log}
+ 		WHERE user_num = #{user_num} AND lno = #{lno}
+	</update>
+	
+	<update id="deleteBusinessLog">
+		UPDATE tbl_business_log
+   		SET revdate= now() , visible= FALSE
+ 		WHERE lno = #{lno};
+	</update>
 </mapper>
