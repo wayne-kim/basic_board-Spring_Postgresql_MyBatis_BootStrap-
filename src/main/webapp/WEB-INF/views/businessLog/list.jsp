@@ -43,7 +43,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<th style="width: 10px"><button class="btn btn-primary glyphicon glyphicon-plus" id="btn-plus"></button></th>
-							<th style="width: 100px"><h5>Target</h5></th>
+							<th style="width: 200px"><h5>Target</h5></th>
 							<th><h5>Log</h5></th>
 							<th style="width: 60px"><h5>Result</h5></th>
 						</tr>
@@ -54,7 +54,7 @@
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" class="form-control" aria-label="...">
+									<input type="text" class="form-control">
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<span class="caret"></span>
@@ -122,6 +122,12 @@
 		var obj = newBusinessLog.clone(true, true);
 
 		$(".table").append(obj);
+	});
+	
+	$(".table").on("click", ".dropdown-menu li", function(){
+		var target = $(this);
+		var input = target.parent().parent().parent().find("input");
+		input.val(target.text());
 	});
 </script>
 
