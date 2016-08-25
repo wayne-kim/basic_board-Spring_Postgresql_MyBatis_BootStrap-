@@ -74,36 +74,37 @@
 							<td><button class="btn btn-danger glyphicon glyphicon-remove btn-result"></button></td>
 						</tr>
 					</table>
-					<br />
-					<button class="btn btn-success pull-right" id="addLogBtn">Add</button>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-success pull-right" id="addLogBtn">추가</button>
 				</div>
 				<!-- /.row -->
 			</div>
 			<!-- /.box-body -->
 
-			<!-- The time line -->
+			<!-- for clone -->
 			<ul class="timeline">
 				<!-- timeline time label -->
 				<li class="time-label" id="bussinessLogDiv"><span class="bg-green"> 업무일지</span></li>
-				<li class="businessLogLi" data-cno="54">
-					<i class="glyphicon glyphicon-thumbs-up bg-blue"></i>
+				<li class="businessLogLi"><i class="glyphicon glyphicon-thumbs-up bg-blue"></i>
 					<div class="timeline-item">
 						<input type="hidden" />
-						<span class="time">
-							날짜
-						</span>
+						<span class="time"> 날짜 </span>
 						<h3 class="timeline-header">웨인</h3>
 						<div class="timeline-body">
 							<table class="table table-bordered" id="businessList" style="margin-bottom: 0px;">
 								<tr>
-									<th style="width: 200px">분류</th>
-									<th>내용</th>
-									<th style="width: 60px">결과</th>
+									<!-- 
+									<th style="width: 10px"><button class="btn btn-primary glyphicon glyphicon-plus"></button></th>
+									 -->
+									<th style="width: 200px"><h5>분류</h5></th>
+									<th><h5>내용</h5></th>
+									<th style="width: 60px"><h5>결과</h5></th>
 								</tr>
 							</table>
 						</div>
-						<div class="timeline-footer">
-							<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
+						<div class="box-footer">
+							<button class="btn btn-danger pull-right btnLogDelete">삭제</button>
 						</div>
 					</div></li>
 			</ul>
@@ -124,25 +125,9 @@
 	$(".btn-delete").on("click", function(e) {
 		$(e.target).parent().parent().remove();
 	});
-	//업무일지 버튼에는 적용 안됨
-	$(".btn-result").on("click", function(e) {
-		if ($(e.target).hasClass("glyphicon-remove")) {
-			$(e.target).removeClass("glyphicon-remove");
-			$(e.target).addClass("glyphicon-ok");
-
-			$(e.target).removeClass("btn-danger");
-			$(e.target).addClass("btn-success");
-		} else {
-			$(e.target).removeClass("glyphicon-ok");
-			$(e.target).addClass("glyphicon-remove");
-
-			$(e.target).removeClass("btn-success");
-			$(e.target).addClass("btn-danger");
-		}
-	});
-
-	var newBusinessLog = $(".new-business-log").clone(true, true);
 	
+	var newBusinessLog = $(".new-business-log").clone(true, true);
+
 	$("#btn-plus").on("click", function() {
 		var obj = newBusinessLog.clone(true, true);
 
@@ -212,71 +197,98 @@
 		});
 	});
 
-	var modelBusinessLog  = $(".businessLogLi").clone(true, true);
+	var modelBusinessLog = $(".businessLogLi").clone(true, true);
 	$(".businessLogLi").remove();
-	
-	function getTodatBusinessLog(){
+
+	function getTodatBusinessLog() {
 		$.getJSON("/businessLogREST", function(data) {
 			console.log(data);
-			for(var i=0; i<data.length; i++){
+			for (var i = 0; i < data.length; i++) {
 				var lno = data[i].lno;
 				var log = data[i].log;
 				var regdate = data[i].regdate;
 				var revdate = data[i].revdate;
 				var user_num = data[i].user_num;
-				
+
 				var checkAttendance;
-				
+
 				var obj = modelBusinessLog.clone(true, true);
 				//업무일지 번호
 				$(obj).find("input").val(lno);
 				//로그 내용
 				var jsonLog = JSON.parse(log);
-				var tag ="";
-				for(var j=0; j<jsonLog.length;j++){
-					var target = jsonLog[j][['target']];
-					var log = jsonLog[j][['log']];
-					var result = jsonLog[j][['result']];
-					tag += "<tr><td>"+target+"</td>";
-					tag += "<td>"+log+"</td>";
-					tag += "<td><button disabled class='btn btn-result btn-xs ";
-					if(result=="0") tag +="glyphicon glyphicon-ok btn-success'></button></td></tr>";
-					else tag +="glyphicon glyphicon-remove btn-danger '></button></td></tr>";
+				var tag = "";
+				for (var j = 0; j < jsonLog.length; j++) {
+					var target = jsonLog[j][[ 'target' ]];
+					var log = jsonLog[j][[ 'log' ]];
+					var result = jsonLog[j][[ 'result' ]];
+					tag += "<tr>";
+					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
+					tag += "<td><h5>"+target+"</h5></td>";
+					tag += "<td><h5>"+log+"</h5></td>";
+					tag += "<td><button class='btn btn-result ";
+					if (result == "0")
+						tag += "glyphicon glyphicon-ok btn-success'></button></td></tr>";
+					else
+						tag += "glyphicon glyphicon-remove btn-danger'></button></td></tr>";
 				}
 				$(obj).find("#businessList").append(tag);
 				//날짜
 				var date = null;
-				if(revdate != null) date = new Date(revdate);
-				else date = new Date(regdate);
+				if (revdate != null)
+					date = new Date(revdate);
+				else
+					date = new Date(regdate);
 
 				var hours = date.getHours();
 				var minutes = date.getMinutes();
-				if(hours < 10) hours = "0"+hours;
-				if(minutes < 10) minutes = "0"+minutes;
-				date = hours+":"+minutes;
-				checkAttendance = hours+minutes+"";
-				
-				if(checkAttendance > "0900" ){
+				if (hours < 10)
+					hours = "0" + hours;
+				if (minutes < 10)
+					minutes = "0" + minutes;
+				date = hours + ":" + minutes;
+				checkAttendance = hours + minutes + "";
+
+				if (checkAttendance > "0900") {
 					var icon = $(obj).find(".glyphicon-thumbs-up");
 					icon.removeClass("glyphicon-thumbs-up");
 					icon.removeClass("bg-blue");
-					
+
 					icon.addClass("glyphicon-thumbs-down");
 					icon.addClass("bg-red");
-					
-					
+
 				}
-				
+
 				$(obj).find(".time").text(date);
 				//유저번호
 				$(obj).find(".timeline-header").text(user_num);
-				
+
 				$(".timeline").append(obj);
 			}
 		});
 	}
+
+	$(".timeline").on("click", ".btnLogDelete", function(event){
+		alert("삭제 버튼");
+	});
 	
 	getTodatBusinessLog();
+	
+	$(document).on("click", ".btn-result" , function(e) {
+		if ($(e.target).hasClass("glyphicon-remove")) {
+			$(e.target).removeClass("glyphicon-remove");
+			$(e.target).addClass("glyphicon-ok");
+
+			$(e.target).removeClass("btn-danger");
+			$(e.target).addClass("btn-success");
+		} else {
+			$(e.target).removeClass("glyphicon-ok");
+			$(e.target).addClass("glyphicon-remove");
+
+			$(e.target).removeClass("btn-success");
+			$(e.target).addClass("btn-danger");
+		}
+	});
 </script>
 
 <%@include file="../include/footer.jsp"%>
