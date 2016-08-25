@@ -26,7 +26,7 @@ class BusinessLogServiceImpl implements BusinessLogService {
 
 	@Override
 	public void updateBusinessLog(BusinessLogVO vo) throws Exception {
-		// TODO Auto-generated method stub
+		dao.updateBusinessLog(vo);
 	}
 
 	@Override

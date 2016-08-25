@@ -14,7 +14,6 @@ public class BusinessLogVO {
 	
 	//사용자 입력 값
 	String log;
-	Boolean result;
 
 	public Integer getLno() {
 		return lno;
@@ -40,12 +39,6 @@ public class BusinessLogVO {
 	public void setVisible(Boolean visible) {
 		this.visible = visible;
 	}
-	public Boolean getResult() {
-		return result;
-	}
-	public void setResult(Boolean result) {
-		this.result = result;
-	}
 	public Integer getUser_num() {
 		return user_num;
 	}
@@ -58,8 +51,8 @@ public class BusinessLogVO {
 	public void setLog(String log) {
 		this.log = log;
 	}
+	@Override
 	public String toString() {
-		return "BusinessLogVO [lno=" + lno + ", regdate=" + regdate + ", revdate=" + revdate + ", visible=" + visible + ", user_num=" + user_num + ", log=" + log + ", result="
-				+ result + "]";
+		return "BusinessLogVO [lno=" + lno + ", regdate=" + regdate + ", revdate=" + revdate + ", visible=" + visible + ", user_num=" + user_num + ", log=" + log + "]";
 	}
 }

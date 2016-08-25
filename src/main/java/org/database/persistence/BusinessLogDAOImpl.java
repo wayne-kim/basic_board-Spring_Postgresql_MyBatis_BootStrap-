@@ -28,14 +28,11 @@ public class BusinessLogDAOImpl implements BusinessLogDAO {
 
 	@Override
 	public void updateBusinessLog(BusinessLogVO vo) throws Exception {
-		// TODO Auto-generated method stub
-		
+		session.update(namespace+".updateBusinessLog", vo);
 	}
 
 	@Override
 	public void deleteBusinessLog(Integer lno, Integer user_num) throws Exception {
 		// TODO Auto-generated method stub
-		
 	}
-
 }
