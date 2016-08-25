@@ -40,12 +40,12 @@
 				</div>
 
 				<div class="box-body">
-					<table class="table table-bordered">
+					<table class="table table-bordered" id="createTable">
 						<tr>
 							<th style="width: 10px"><button class="btn btn-primary glyphicon glyphicon-plus" id="btn-plus"></button></th>
-							<th style="width: 200px"><h5>Target</h5></th>
-							<th><h5>Log</h5></th>
-							<th style="width: 60px"><h5>Result</h5></th>
+							<th style="width: 200px"><h5>분류</h5></th>
+							<th><h5>내용</h5></th>
+							<th style="width: 60px"><h5>결과</h5></th>
 						</tr>
 
 						<tr class="new-business-log">
@@ -74,16 +74,40 @@
 							<td><button class="btn btn-danger glyphicon glyphicon-remove btn-result"></button></td>
 						</tr>
 					</table>
-					<br/>
+					<br />
 					<button class="btn btn-success pull-right" id="addLogBtn">Add</button>
 				</div>
 				<!-- /.row -->
 			</div>
 			<!-- /.box-body -->
+
+			<!-- The time line -->
+			<ul class="timeline">
+				<!-- timeline time label -->
+				<li class="time-label" id="bussinessLogDiv"><span class="bg-green"> 업무일지</span></li>
+				<li class="businessLogLi" data-cno="54"><i class="fa fa-comments bg-blue"></i>
+					<div class="timeline-item">
+						<input type="hidden" />
+						<span class="time">
+							<i class="fa fa-clock-o"></i>날짜
+						</span>
+						<h3 class="timeline-header">웨인</h3>
+						<div class="timeline-body">
+							<table class="table table-bordered" id="businessList">
+								<tr>
+									<th style="width: 200px">분류</th>
+									<th>내용</th>
+									<th style="width: 60px">결과</th>
+								</tr>
+							</table>
+						</div>
+						<div class="timeline-footer">
+							<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modifyModal">Modify</a>
+						</div>
+					</div></li>
+			</ul>
 		</div>
 	</div>
-	<!--/.col (left) -->
-	<!-- /.row -->
 </section>
 <!-- /.content -->
 </div>
@@ -99,7 +123,7 @@
 	$(".btn-delete").on("click", function(e) {
 		$(e.target).parent().parent().remove();
 	});
-
+	//업무일지 버튼에는 적용 안됨
 	$(".btn-result").on("click", function(e) {
 		if ($(e.target).hasClass("glyphicon-remove")) {
 			$(e.target).removeClass("glyphicon-remove");
@@ -117,37 +141,42 @@
 	});
 
 	var newBusinessLog = $(".new-business-log").clone(true, true);
-	;
+	
 	$("#btn-plus").on("click", function() {
 		var obj = newBusinessLog.clone(true, true);
 
-		$(".table").append(obj);
+		$("#createTable").append(obj);
 	});
-	
-	$(".table").on("click", ".dropdown-menu li", function(){
+
+	$(".table").on("click", ".dropdown-menu li", function() {
 		var target = $(this);
 		var input = target.parent().parent().parent().find("input");
 		input.val(target.text());
 	});
-	
-	$("#addLogBtn").on("click",function(){
+
+	$("#addLogBtn").on("click", function() {
 		var logs = $(".new-business-log");
-		
+
+		if (logs.length <= 0) {
+			alert("업무일지를 작성해주세요.");
+			return;
+		}
+
 		var datas = new Array();
-		
-		for(var i=0; i<logs.length; i++){
+
+		for (var i = 0; i < logs.length; i++) {
 			var data = new Object();
 			var target = logs.eq(i).find("input").eq(0).val();
 			var content = logs.eq(i).find("input").eq(1).val();
-			var result =  logs.eq(i).find(".btn-result");
+			var result = logs.eq(i).find(".btn-result");
 			result = (result.attr('class').includes("btn-danger") == true ? "0" : "1");
-			
-			if(target == ""){
+
+			if (target == "") {
 				alert("input target");
 				logs.eq(i).find("input").eq(0).focus();
 				return;
 			}
-			if(content == ""){
+			if (content == "") {
 				alert("input log");
 				logs.eq(i).find("input").eq(1).focus();
 				return;
@@ -157,7 +186,7 @@
 			data.restult = result;
 			datas.push(data);
 		}
-		
+
 		$.ajax({
 			type : 'post',
 			url : '/businessLogREST',
@@ -174,9 +203,71 @@
 				console.log("result: " + result);
 				if (result == "SUCCESS") {
 					alert("등록되었습니다.");
+					logs.remove();
 				}
 			}
 		});
+	});
+
+	var modelBusinessLog  = $(".businessLogLi").clone(true, true);
+	$(".businessLogLi").remove();
+	
+	$.getJSON("/businessLogREST", function(data) {
+		console.log(data);
+		for(var i=0; i<data.length; i++){
+			var lno = data[i].lno;
+			var log = data[i].log;
+			var regdate = data[i].regdate;
+			var revdate = data[i].revdate;
+			var user_num = data[i].user_num;
+			
+			var checkAttendance;
+			
+			var obj = modelBusinessLog.clone(true, true);
+			//업무일지 번호
+			$(obj).find("input").val(lno);
+			//로그 내용
+			var jsonLog = JSON.parse(log);
+			var tag ="";
+			for(var j=0; j<jsonLog.length;j++){
+				var target = jsonLog[j][['target']];
+				var log = jsonLog[j][['log']];
+				var result = jsonLog[j][['result']];
+				tag += "<tr><td>"+target+"</td>";
+				tag += "<td>"+log+"</td>";
+				tag += "<td><button disabled class='btn btn-result ";
+				if(result=="0") tag +="glyphicon glyphicon-ok btn-success'></button></td></tr>";
+				else tag +="glyphicon glyphicon-remove btn-danger '></button></td></tr>";
+			}
+			console.log(tag);
+			$(obj).find("#businessList").append(tag);
+			//날짜
+			function msToTime(duration) {
+			    var milliseconds = parseInt((duration%1000)/100)
+			        , seconds = parseInt((duration/1000)%60)
+			        , minutes = parseInt((duration/(1000*60))%60)
+			        , hours = parseInt((duration/(1000*60*60))%24);
+
+			    hours = (hours < 10) ? "0" + hours : hours;
+			    minutes = (minutes < 10) ? "0" + minutes : minutes;
+			    seconds = (seconds < 10) ? "0" + seconds : seconds;
+
+			    checkAttendance = hours+minutes+"";
+			    
+			    return hours + ":" + minutes;
+			}
+			var date = (revdate != null) ? msToTime(revdate) : msToTime(regdate);
+			if(checkAttendance > "0900" ){
+				var icon = $(obj).find(".fa-comments");
+				icon.removeClass("bg-blue");
+				icon.addClass("bg-red");
+			}
+			$(obj).find(".time").text(date);
+			//유저번호
+			$(obj).find(".timeline-header").text(user_num);
+			
+			$(".timeline").append(obj);
+		}
 	});
 </script>
 
