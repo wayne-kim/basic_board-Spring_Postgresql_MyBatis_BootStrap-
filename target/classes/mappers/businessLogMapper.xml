@@ -15,6 +15,7 @@
 		SELECT *
 		FROM tbl_business_log
 		WHERE to_char(regdate, 'YYYY-MM-DD') = to_char(now(), 'YYYY-MM-DD') AND visible = 'TRUE'
+		ORDER BY lno, regdate DESC
 	</select>
 	
 	<select id="seatchBusinessLogs" resultType="BusinessLogVO">

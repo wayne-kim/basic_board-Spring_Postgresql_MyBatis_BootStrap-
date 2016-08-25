@@ -74,14 +74,12 @@
 							<td><button class="btn btn-danger glyphicon glyphicon-remove btn-result"></button></td>
 						</tr>
 					</table>
+					<br/>
+					<button class="btn btn-success pull-right">Add</button>
 				</div>
 				<!-- /.row -->
 			</div>
 			<!-- /.box-body -->
-			<div class="box-footer">
-				<button class="btn btn-success">Add</button>
-			</div>
-			<!-- /.box-footer-->
 		</div>
 	</div>
 	<!--/.col (left) -->
