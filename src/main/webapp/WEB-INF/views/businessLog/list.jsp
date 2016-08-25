@@ -85,15 +85,16 @@
 			<ul class="timeline">
 				<!-- timeline time label -->
 				<li class="time-label" id="bussinessLogDiv"><span class="bg-green"> 업무일지</span></li>
-				<li class="businessLogLi" data-cno="54"><i class="fa fa-comments bg-blue"></i>
+				<li class="businessLogLi" data-cno="54">
+					<i class="glyphicon glyphicon-thumbs-up bg-blue"></i>
 					<div class="timeline-item">
 						<input type="hidden" />
 						<span class="time">
-							<i class="fa fa-clock-o"></i>날짜
+							날짜
 						</span>
 						<h3 class="timeline-header">웨인</h3>
 						<div class="timeline-body">
-							<table class="table table-bordered" id="businessList">
+							<table class="table table-bordered" id="businessList" style="margin-bottom: 0px;">
 								<tr>
 									<th style="width: 200px">분류</th>
 									<th>내용</th>
@@ -204,6 +205,8 @@
 				if (result == "SUCCESS") {
 					alert("등록되었습니다.");
 					logs.remove();
+					$(".businessLogLi").remove();
+					getTodatBusinessLog();
 				}
 			}
 		});
@@ -212,63 +215,68 @@
 	var modelBusinessLog  = $(".businessLogLi").clone(true, true);
 	$(".businessLogLi").remove();
 	
-	$.getJSON("/businessLogREST", function(data) {
-		console.log(data);
-		for(var i=0; i<data.length; i++){
-			var lno = data[i].lno;
-			var log = data[i].log;
-			var regdate = data[i].regdate;
-			var revdate = data[i].revdate;
-			var user_num = data[i].user_num;
-			
-			var checkAttendance;
-			
-			var obj = modelBusinessLog.clone(true, true);
-			//업무일지 번호
-			$(obj).find("input").val(lno);
-			//로그 내용
-			var jsonLog = JSON.parse(log);
-			var tag ="";
-			for(var j=0; j<jsonLog.length;j++){
-				var target = jsonLog[j][['target']];
-				var log = jsonLog[j][['log']];
-				var result = jsonLog[j][['result']];
-				tag += "<tr><td>"+target+"</td>";
-				tag += "<td>"+log+"</td>";
-				tag += "<td><button disabled class='btn btn-result ";
-				if(result=="0") tag +="glyphicon glyphicon-ok btn-success'></button></td></tr>";
-				else tag +="glyphicon glyphicon-remove btn-danger '></button></td></tr>";
-			}
-			console.log(tag);
-			$(obj).find("#businessList").append(tag);
-			//날짜
-			function msToTime(duration) {
-			    var milliseconds = parseInt((duration%1000)/100)
-			        , seconds = parseInt((duration/1000)%60)
-			        , minutes = parseInt((duration/(1000*60))%60)
-			        , hours = parseInt((duration/(1000*60*60))%24);
+	function getTodatBusinessLog(){
+		$.getJSON("/businessLogREST", function(data) {
+			console.log(data);
+			for(var i=0; i<data.length; i++){
+				var lno = data[i].lno;
+				var log = data[i].log;
+				var regdate = data[i].regdate;
+				var revdate = data[i].revdate;
+				var user_num = data[i].user_num;
+				
+				var checkAttendance;
+				
+				var obj = modelBusinessLog.clone(true, true);
+				//업무일지 번호
+				$(obj).find("input").val(lno);
+				//로그 내용
+				var jsonLog = JSON.parse(log);
+				var tag ="";
+				for(var j=0; j<jsonLog.length;j++){
+					var target = jsonLog[j][['target']];
+					var log = jsonLog[j][['log']];
+					var result = jsonLog[j][['result']];
+					tag += "<tr><td>"+target+"</td>";
+					tag += "<td>"+log+"</td>";
+					tag += "<td><button disabled class='btn btn-result btn-xs ";
+					if(result=="0") tag +="glyphicon glyphicon-ok btn-success'></button></td></tr>";
+					else tag +="glyphicon glyphicon-remove btn-danger '></button></td></tr>";
+				}
+				$(obj).find("#businessList").append(tag);
+				//날짜
+				var date = null;
+				if(revdate != null) date = new Date(revdate);
+				else date = new Date(regdate);
 
-			    hours = (hours < 10) ? "0" + hours : hours;
-			    minutes = (minutes < 10) ? "0" + minutes : minutes;
-			    seconds = (seconds < 10) ? "0" + seconds : seconds;
-
-			    checkAttendance = hours+minutes+"";
-			    
-			    return hours + ":" + minutes;
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				if(hours < 10) hours = "0"+hours;
+				if(minutes < 10) minutes = "0"+minutes;
+				date = hours+":"+minutes;
+				checkAttendance = hours+minutes+"";
+				
+				if(checkAttendance > "0900" ){
+					var icon = $(obj).find(".glyphicon-thumbs-up");
+					icon.removeClass("glyphicon-thumbs-up");
+					icon.removeClass("bg-blue");
+					
+					icon.addClass("glyphicon-thumbs-down");
+					icon.addClass("bg-red");
+					
+					
+				}
+				
+				$(obj).find(".time").text(date);
+				//유저번호
+				$(obj).find(".timeline-header").text(user_num);
+				
+				$(".timeline").append(obj);
 			}
-			var date = (revdate != null) ? msToTime(revdate) : msToTime(regdate);
-			if(checkAttendance > "0900" ){
-				var icon = $(obj).find(".fa-comments");
-				icon.removeClass("bg-blue");
-				icon.addClass("bg-red");
-			}
-			$(obj).find(".time").text(date);
-			//유저번호
-			$(obj).find(".timeline-header").text(user_num);
-			
-			$(".timeline").append(obj);
-		}
-	});
+		});
+	}
+	
+	getTodatBusinessLog();
 </script>
 
 <%@include file="../include/footer.jsp"%>
