@@ -33,6 +33,6 @@
 	<update id="deleteBusinessLog">
 		UPDATE tbl_business_log
    		SET revdate= now() , visible= FALSE
- 		WHERE lno = #{lno} AND user_num #{user_num}
+ 		WHERE lno = #{lno} AND user_num = #{user_num}
 	</update>
 </mapper>

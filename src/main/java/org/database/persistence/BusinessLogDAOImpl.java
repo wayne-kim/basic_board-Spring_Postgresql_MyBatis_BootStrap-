@@ -32,7 +32,7 @@ public class BusinessLogDAOImpl implements BusinessLogDAO {
 	}
 
 	@Override
-	public void deleteBusinessLog(Integer lno, Integer user_num) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteBusinessLog(BusinessLogVO vo) throws Exception {
+		session.delete(namespace+".deleteBusinessLog", vo);
 	}
 }

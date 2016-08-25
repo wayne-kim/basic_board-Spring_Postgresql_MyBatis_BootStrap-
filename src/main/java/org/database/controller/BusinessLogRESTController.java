@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.database.domain.BusinessLogVO;
+import org.database.domain.UserVO;
 import org.database.service.BusinessLogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,8 +52,21 @@ public class BusinessLogRESTController {
 		ResponseEntity<String> entity = null;
 		try {
 			vo.setLno(lno);
-			System.out.println(vo.toString());
 			service.updateBusinessLog(vo);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "{lno}", method = RequestMethod.DELETE)
+	public ResponseEntity<String> delete(@PathVariable("lno") Integer lno, @RequestBody BusinessLogVO vo) {
+		ResponseEntity<String> entity = null;
+		try {
+			vo.setLno(lno);
+			service.deleteBusinessLog(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

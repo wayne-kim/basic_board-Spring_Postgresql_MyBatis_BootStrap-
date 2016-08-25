@@ -30,8 +30,8 @@ class BusinessLogServiceImpl implements BusinessLogService {
 	}
 
 	@Override
-	public void deleteBusinessLog(Integer lno, Integer user_num) throws Exception {
-		// TODO Auto-generated method stub
+	public void deleteBusinessLog(BusinessLogVO vo) throws Exception {
+		dao.deleteBusinessLog(vo);
 	}
 
 }
