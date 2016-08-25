@@ -48,13 +48,12 @@
 							<th style="width: 60px"><h5>Result</h5></th>
 						</tr>
 
-						<tr id="new-business-log">
+						<tr class="new-business-log">
 							<td>
 								<button class="btn btn-danger glyphicon glyphicon-minus btn-delete"></button>
 							</td>
 							<td>
 								<div class="input-group">
-									<input type="text" class="form-control">
 									<div class="input-group-btn">
 										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 											<span class="caret"></span>
@@ -68,6 +67,7 @@
 											<li><a href="#">etc</a></li>
 										</ul>
 									</div>
+									<input type="text" class="form-control">
 								</div> <!-- /input-group -->
 							</td>
 							<td><input type="text" class="form-control" aria-label="..."></td>
@@ -75,7 +75,7 @@
 						</tr>
 					</table>
 					<br/>
-					<button class="btn btn-success pull-right">Add</button>
+					<button class="btn btn-success pull-right" id="addLogBtn">Add</button>
 				</div>
 				<!-- /.row -->
 			</div>
@@ -116,7 +116,7 @@
 		}
 	});
 
-	var newBusinessLog = $("#new-business-log").clone(true, true);
+	var newBusinessLog = $(".new-business-log").clone(true, true);
 	;
 	$("#btn-plus").on("click", function() {
 		var obj = newBusinessLog.clone(true, true);
@@ -128,6 +128,55 @@
 		var target = $(this);
 		var input = target.parent().parent().parent().find("input");
 		input.val(target.text());
+	});
+	
+	$("#addLogBtn").on("click",function(){
+		var logs = $(".new-business-log");
+		
+		var datas = new Array();
+		
+		for(var i=0; i<logs.length; i++){
+			var data = new Object();
+			var target = logs.eq(i).find("input").eq(0).val();
+			var content = logs.eq(i).find("input").eq(1).val();
+			var result =  logs.eq(i).find(".btn-result");
+			result = (result.attr('class').includes("btn-danger") == true ? "0" : "1");
+			
+			if(target == ""){
+				alert("input target");
+				logs.eq(i).find("input").eq(0).focus();
+				return;
+			}
+			if(content == ""){
+				alert("input log");
+				logs.eq(i).find("input").eq(1).focus();
+				return;
+			}
+			data.target = target;
+			data.log = content;
+			data.restult = result;
+			datas.push(data);
+		}
+		
+		$.ajax({
+			type : 'post',
+			url : '/businessLogREST',
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : 'text',
+			data : JSON.stringify({
+				user_num : 3,
+				log : JSON.stringify(datas)
+			}),
+			success : function(result) {
+				console.log("result: " + result);
+				if (result == "SUCCESS") {
+					alert("등록되었습니다.");
+				}
+			}
+		});
 	});
 </script>
 
