@@ -207,7 +207,6 @@
 				var lno = data[i].lno;
 				var log = data[i].log;
 				var regdate = data[i].regdate;
-				var revdate = data[i].revdate;
 				var user_num = data[i].user_num;
 
 				var checkAttendance;
@@ -234,11 +233,7 @@
 				}
 				$(obj).find("#businessList").append(tag);
 				//날짜
-				var date = null;
-				if (revdate != null)
-					date = new Date(revdate);
-				else
-					date = new Date(regdate);
+				var date = new Date(regdate);
 
 				var hours = date.getHours();
 				var minutes = date.getMinutes();
@@ -269,7 +264,30 @@
 	}
 
 	$(".timeline").on("click", ".btnLogDelete", function(event){
-		alert("삭제 버튼");
+		var root = $(event.target).parent().parent();
+		var lno = root.find("input").val();
+		
+		if(confirm("삭제하시겠습니까?")){
+			$.ajax({
+				type : 'delete',
+				url : '/businessLogREST/'+lno,
+				headers : {
+					"Content-Type" : "application/json",
+					"X-HTTP-Method-Override" : "DELETE"
+				},
+				dataType : 'text',
+				data : JSON.stringify({
+					user_num : 3
+				}),
+				success : function(result) {
+					if (result == "SUCCESS") {
+						alert("삭제되었습니다.");
+						$(".businessLogLi").remove();
+						getTodatBusinessLog();
+					}
+				}
+			});
+	    }
 	});
 	
 	getTodatBusinessLog();
