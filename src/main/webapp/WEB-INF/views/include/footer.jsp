@@ -184,5 +184,7 @@
     <script src="/resources/dist/js/app.min.js" type="text/javascript"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="/resources/dist/js/demo.js" type="text/javascript"></script>
+    <!-- datepicker js -->
+    <script src="/resources/plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
   </body>
 </html>

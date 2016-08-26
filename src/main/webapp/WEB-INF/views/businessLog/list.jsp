@@ -17,93 +17,71 @@
 					<h3 class="box-title">Business Log</h3>
 				</div>
 
-				<!-- 
-				<div class="box-body">
-					<div class="input-group">
-						<div class="input-group-btn search-panel">
-							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-								<span id="search_concept">선택</span>
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu" id="filter" role="menu">
-								<li>
-									<a>Log</a>
-								</li>
-								<li>
-									<a>WRITER</a>
-								</li>
-							</ul>
-						</div>
-						<input type="text" class="form-control" name="keyword" value='${cri.keyword}' id="keywordInput">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="button" id="searchBtn">
-								<span class="glyphicon glyphicon-search"></span>
-							</button>
-						</span>
-					</div>
-				</div>
-				 -->
-
-				<div class="box-body">
-					<table class="table table-bordered" id="createTable">
-						<tr>
-							<th style="width: 10px"><button class="btn btn-primary glyphicon glyphicon-plus" id="btn-plus"></button></th>
-							<th style="width: 200px"><h5>분류</h5></th>
-							<th><h5>내용</h5></th>
-							<th style="width: 60px"><h5>결과</h5></th>
-						</tr>
-						<tr class="new-business-log">
-							<td>
-								<button class="btn btn-danger glyphicon glyphicon-minus btn-delete"></button>
-							</td>
-							<td>
-								<div class="input-group">
-									<div class="input-group-btn">
-										<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-											<span class="caret"></span>
-										</button>
-										<ul class="dropdown-menu" role="menu">
-											<li>
-												<a href="#">C</a>
-											</li>
-											<li>
-												<a href="#">C++</a>
-											</li>
-											<li>
-												<a href="#">C#</a>
-											</li>
-											<li>
-												<a href="#">Java</a>
-											</li>
-											<li>
-												<a href="#">Javascript</a>
-											</li>
-											<li>
-												<a href="#">etc</a>
-											</li>
-										</ul>
-									</div>
-									<input type="text" class="form-control">
-								</div> <!-- /input-group -->
-							</td>
-							<td><input type="text" class="form-control" aria-label="..."></td>
-							<td><button class="btn btn-danger glyphicon glyphicon-remove btn-result"></button></td>
-						</tr>
-					</table>
-				</div>
-				<div class="box-footer">
-					<button class="btn btn-success pull-right" id="addLogBtn">추가</button>
-				</div>
-
 				<div class="box-footer">
 					<div class="input-group">
 						<span class="input-group-btn">
 							<button id="previousDate" class="btn glyphicon glyphicon-chevron-left"></button>
 						</span>
-						<input id="date" type="text" class="form-control text-center" value="오늘날짜" disabled />
+						<input id="Mydatepicker" type="text" class="form-control text-center" value="오늘날짜" data-provide="datepicker" />
+						<div class="input-group-addon">
+					    	<span id="selectDate" class="glyphicon glyphicon-search" style="cursor: pointer;"></span>
+					    </div>
 						<span class="input-group-btn">
-							<button id="nextDate" class="btn glyphicon glyphicon-chevron-right pull-right" disabled="disabled"></button>
+							<button id="nextDate" class="btn glyphicon glyphicon-chevron-right pull-right"></button>
 						</span>
+					</div>
+				</div>
+				
+				<div id="divTodayBusinessLog">
+					<div class="box-body">
+						<table class="table table-bordered" id="createTable">
+							<tr>
+								<th style="width: 10px"><button class="btn btn-primary glyphicon glyphicon-plus" id="btn-plus"></button></th>
+								<th style="width: 200px"><h5>분류</h5></th>
+								<th><h5>내용</h5></th>
+								<th style="width: 60px"><h5>결과</h5></th>
+							</tr>
+							<tr class="new-business-log">
+								<td>
+									<button class="btn btn-danger glyphicon glyphicon-minus btn-delete"></button>
+								</td>
+								<td>
+									<div class="input-group">
+										<div class="input-group-btn">
+											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+												<span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu" role="menu">
+												<li>
+													<a href="#">C</a>
+												</li>
+												<li>
+													<a href="#">C++</a>
+												</li>
+												<li>
+													<a href="#">C#</a>
+												</li>
+												<li>
+													<a href="#">Java</a>
+												</li>
+												<li>
+													<a href="#">Javascript</a>
+												</li>
+												<li>
+													<a href="#">etc</a>
+												</li>
+											</ul>
+										</div>
+										<input type="text" class="form-control">
+									</div> <!-- /input-group -->
+								</td>
+								<td><input type="text" class="form-control" aria-label="..."></td>
+								<td><button class="btn btn-danger glyphicon glyphicon-remove btn-result"></button></td>
+							</tr>
+						</table>
+					</div>
+					<div class="box-footer">
+						<button class="btn btn-success pull-right" id="addLogBtn">추가</button>
 					</div>
 				</div>
 				<!-- /.row -->
@@ -224,6 +202,7 @@
 					alert("등록되었습니다.");
 					logs.remove();
 					$(".businessLogLi").remove();
+					$("#createTable").append(newBusinessLog);
 					getTodatBusinessLog();
 				}
 			}
@@ -256,7 +235,7 @@
 					var target = jsonLog[j][[ 'target' ]];
 					var log = jsonLog[j][[ 'log' ]];
 					var result = jsonLog[j][[ 'result' ]];
-					
+
 					tag += "<tr>";
 					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
 					tag += "<td><h5>" + target + "</h5></td>";
@@ -427,14 +406,16 @@
 	var yyyy = viewDate.getFullYear();
 	var mm = (1 + viewDate.getMonth());
 	var dd = viewDate.getDate();
-	if(mm<10) mm = "0"+mm;
-	if(dd<10) dd = "0"+dd;
+	if (mm < 10)
+		mm = "0" + mm;
+	if (dd < 10)
+		dd = "0" + dd;
 	var today = yyyy + "-" + mm + "-" + dd;
-	
-	$("#date").val(today);
-	
-	function getInputBusinessLog(a){
-		$.getJSON("/businessLogREST/"+a, function(data) {
+	//id=""
+	$("#Mydatepicker").val(today);
+
+	function getInputBusinessLog(a) {
+		$.getJSON("/businessLogREST/" + a, function(data) {
 			$(".businessLogLi").remove();
 			setTodayBusinessLogCnt(data.length);
 			for (var i = 0; i < data.length; i++) {
@@ -455,7 +436,7 @@
 					var target = jsonLog[j][[ 'target' ]];
 					var log = jsonLog[j][[ 'log' ]];
 					var result = jsonLog[j][[ 'result' ]];
-					
+
 					tag += "<tr>";
 					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
 					tag += "<td><h5>" + target + "</h5></td>";
@@ -489,7 +470,6 @@
 
 					icon.addClass("glyphicon-thumbs-down");
 					icon.addClass("bg-red");
-
 				}
 
 				$(obj).find(".time").text(date);
@@ -500,57 +480,65 @@
 			}
 		});
 	}
-	$(document).on("click", "#previousDate", function(){
+	$(document).on("click", "#previousDate", function() {
+		$("#divTodayBusinessLog").hide();
 		viewDate.setDate(viewDate.getDate() - 1);
-		var yyyy = viewDate.getFullYear();
-		var mm = (1 + viewDate.getMonth());
-		var dd = viewDate.getDate();
 		
-		if(mm<10) mm = "0"+mm;
-		if(dd<10) dd = "0"+dd;
-		var a = yyyy + "-" + mm + "-" + dd;
-		$("#date").val(a);
-		
-		var now = new Date();
-		var nowyyyy = now.getFullYear();
-		var nowmm = (1 + now.getMonth());
-		var nowdd = now.getDate();
-		
-		if(nowmm<10) nowmm = "0"+nowmm;
-		if(nowdd<10) nowdd = "0"+nowdd;
-		var b = nowyyyy + "-" + nowmm + "-" + nowdd;
-		if(a < b){
-			$("#nextDate").prop('disabled', false);
+		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
+			$("#divTodayBusinessLog").show();
+		}else{
+			$("#divTodayBusinessLog").hide();
 		}
 		
-		getInputBusinessLog(a);
+		$("#Mydatepicker").val(getMyDateFommat(viewDate));
+		getInputBusinessLog(getMyDateFommat(viewDate));
+	});
+
+	$(document).on("click", "#nextDate", function() {
+		viewDate.setDate(viewDate.getDate() + 1);
+		$("#Mydatepicker").val(getMyDateFommat(viewDate));
+
+		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
+			$("#divTodayBusinessLog").show();
+		}else{
+			$("#divTodayBusinessLog").hide();
+		}
+
+		getInputBusinessLog(getMyDateFommat(viewDate));
+	});
+
+	$(document).ready(function() {
+		$('#Mydatepicker').datepicker({
+			format : 'yyyy-mm-dd',
+			autoclose: true
+		});
 	});
 	
-	$(document).on("click", "#nextDate", function(){
-		viewDate.setDate(viewDate.getDate() + 1);
-		var yyyy = viewDate.getFullYear();
-		var mm = (1 + viewDate.getMonth());
-		var dd = viewDate.getDate()
-		
-		if(mm<10) mm = "0"+mm;
-		if(dd<10) dd = "0"+dd;
-		var a = yyyy + "-" + mm + "-" + dd;
-		$("#date").val(a);
-		
-		var now = new Date();
-		var nowyyyy = now.getFullYear();
-		var nowmm = (1 + now.getMonth());
-		var nowdd = now.getDate();
-		
-		if(nowmm<10) nowmm = "0"+nowmm;
-		if(nowdd<10) nowdd = "0"+nowdd;
-		var b = nowyyyy + "-" + nowmm + "-" + nowdd;
-		if(a >= b){
-			$("#nextDate").prop('disabled', true);
+	$(document).on("click", "#selectDate", function(){
+		viewDate = new Date($("#Mydatepicker").val());
+		$("#Mydatepicker").val(getMyDateFommat(viewDate));
+		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
+			$("#divTodayBusinessLog").show();
+		}else {
+			$("#divTodayBusinessLog").hide();
 		}
 		
-		getInputBusinessLog(a);
+		getInputBusinessLog($("#Mydatepicker").val());
 	});
+	
+	function getMyDateFommat(date){
+		var yyyy = date.getFullYear();
+		var mm = (1 + date.getMonth());
+		var dd = date.getDate()
+
+		if (mm < 10)
+			mm = "0" + mm;
+		if (dd < 10)
+			dd = "0" + dd;
+		var a = yyyy + "-" + mm + "-" + dd;
+		
+		return a;
+	}
 </script>
 
 <%@include file="../include/footer.jsp"%>
