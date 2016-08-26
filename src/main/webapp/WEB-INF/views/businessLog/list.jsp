@@ -166,12 +166,12 @@
 			result = (result.attr('class').includes("btn-danger") == true ? "0" : "1");
 
 			if (target == "") {
-				alert("input target");
+				alert("분류를 입력해주세요.");
 				logs.eq(i).find("input").eq(0).focus();
 				return;
 			}
 			if (content == "") {
-				alert("input log");
+				alert("내용을 입력해주세요.");
 				logs.eq(i).find("input").eq(1).focus();
 				return;
 			}
@@ -367,28 +367,16 @@
 				console.log("result: " + result);
 				if (result == "SUCCESS") {
 					if (sendMessage) {
-						var n = Math.floor(Math.random() * 6);
-
-						switch (n) {
-						case 0:
-							alert("오늘도 고생하셨습니다.");
-							break;
-						case 1:
-							alert("이것 또한 지나갑니다.");
-							break;
-						case 2:
-							alert("실패는 성공의 어머니 입니다.");
-							break;
-						case 3:
-							alert("피가 되고 살이 되는 시간이였습니다.");
-							break;
-						case 4:
-							alert("정상에서 뵙시다.");
-							break;
-						case 5:
-							alert("C를 못 끝내면 사람이 아닙니다. 멘트가 마음에 안들면 너님이 바꾸세요. ㅋㅋㅋ");
-							break;
-						}
+						var messages =  new Array();
+						messages.push("오늘도 고생하셨습니다.");
+						messages.push("이것 또한 지나갑니다.");
+						messages.push("실패는 성공의 어머니 입니다");
+						messages.push("피가 되고 살이 되는 시간이였습니다.");
+						messages.push("정상에서 뵙시다.");
+						messages.push("C를 못 끝내면 사람이 아닙니다. 멘트가 마음에 안들면 너님이 바꾸세요. ㅋㅋㅋ");
+						
+						var n = Math.floor(Math.random() * messages.length);
+						alert(messages[n]);						
 					}
 				}
 			}
@@ -523,20 +511,6 @@
 			})();
 		});
 	});
-
-	/*
-	$(document).on("click", "#selectDate", function(){
-		viewDate = new Date($("#Mydatepicker").val());
-		$("#Mydatepicker").val(getMyDateFommat(viewDate));
-		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
-			$("#divTodayBusinessLog").show();
-		}else {
-			$("#divTodayBusinessLog").hide();
-		}
-		
-		getInputBusinessLog($("#Mydatepicker").val());
-	});
-	 */
 
 	function getMyDateFommat(date) {
 		var yyyy = date.getFullYear();
