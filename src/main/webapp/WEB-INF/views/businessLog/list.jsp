@@ -12,7 +12,6 @@
 		<div class="col-md-12">
 			<!-- general form elements -->
 
-
 			<div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title">Business Log</h3>
@@ -26,8 +25,12 @@
 								<span class="caret"></span>
 							</button>
 							<ul class="dropdown-menu" id="filter" role="menu">
-								<li><a>Log</a></li>
-								<li><a>WRITER</a></li>
+								<li>
+									<a>Log</a>
+								</li>
+								<li>
+									<a>WRITER</a>
+								</li>
 							</ul>
 						</div>
 						<input type="text" class="form-control" name="keyword" value='${cri.keyword}' id="keywordInput">
@@ -58,12 +61,24 @@
 											<span class="caret"></span>
 										</button>
 										<ul class="dropdown-menu" role="menu">
-											<li><a href="#">C</a></li>
-											<li><a href="#">C++</a></li>
-											<li><a href="#">C#</a></li>
-											<li><a href="#">Java</a></li>
-											<li><a href="#">Javascript</a></li>
-											<li><a href="#">etc</a></li>
+											<li>
+												<a href="#">C</a>
+											</li>
+											<li>
+												<a href="#">C++</a>
+											</li>
+											<li>
+												<a href="#">C#</a>
+											</li>
+											<li>
+												<a href="#">Java</a>
+											</li>
+											<li>
+												<a href="#">Javascript</a>
+											</li>
+											<li>
+												<a href="#">etc</a>
+											</li>
 										</ul>
 									</div>
 									<input type="text" class="form-control">
@@ -84,8 +99,11 @@
 			<!-- for clone -->
 			<ul class="timeline">
 				<!-- timeline time label -->
-				<li class="time-label" id="bussinessLogDiv"><span class="bg-green"> 업무일지</span></li>
-				<li class="businessLogLi"><i class="glyphicon glyphicon-thumbs-up bg-blue"></i>
+				<li class="time-label" id="bussinessLogDiv">
+					<span class="bg-green" id="toDayBusinessLogCnt"> 업무일지</span>
+				</li>
+				<li class="businessLogLi">
+					<i class="glyphicon glyphicon-thumbs-up bg-blue"></i>
 					<div class="timeline-item">
 						<input type="hidden" />
 						<span class="time"> 날짜 </span>
@@ -104,7 +122,8 @@
 						<div class="box-footer">
 							<button class="btn btn-danger pull-right btnLogDelete">삭제</button>
 						</div>
-					</div></li>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -123,7 +142,7 @@
 	$(".btn-delete").on("click", function(e) {
 		$(e.target).parent().parent().remove();
 	});
-	
+
 	var newBusinessLog = $(".new-business-log").clone(true, true);
 
 	$("#btn-plus").on("click", function() {
@@ -195,7 +214,7 @@
 			}
 		});
 	});
-	
+
 	//업무일지 내역 모델
 	var modelBusinessLog = $(".businessLogLi").clone(true, true);
 	$(".businessLogLi").remove();
@@ -203,7 +222,7 @@
 	//금일 업무 일지 가져오기
 	function getTodatBusinessLog() {
 		$.getJSON("/businessLogREST", function(data) {
-			console.log(data);
+			setTodayBusinessLogCnt(data.length);
 			for (var i = 0; i < data.length; i++) {
 				var lno = data[i].lno;
 				var log = data[i].log;
@@ -225,17 +244,17 @@
 					console.log(result);
 					tag += "<tr>";
 					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
-					tag += "<td><h5>"+target+"</h5></td>";
-					tag += "<td><h5>"+log+"</h5></td>";
+					tag += "<td><h5>" + target + "</h5></td>";
+					tag += "<td><h5>" + log + "</h5></td>";
 					tag += "<td><button class='btn btn-result btn-result-change ";
-					if (result == "0"){
+					if (result == "0") {
 						tag += "glyphicon glyphicon-remove btn-danger'></button></td></tr>";
 						console.log("왜 여기야?");
-					} else{
+					} else {
 						tag += "glyphicon glyphicon-ok btn-success'></button></td></tr>";
 						console.log("성공으로 안 나오나?");
 					}
-						
+
 				}
 				$(obj).find("#businessList").append(tag);
 				//날짜
@@ -269,16 +288,16 @@
 			}
 		});
 	}
-	
+
 	//업무일지 삭제 RESTful
-	$(".timeline").on("click", ".btnLogDelete", function(event){
+	$(".timeline").on("click", ".btnLogDelete", function(event) {
 		var root = $(event.target).parent().parent();
 		var lno = root.find("input").val();
-		
-		if(confirm("삭제하시겠습니까?")){
+
+		if (confirm("삭제하시겠습니까?")) {
 			$.ajax({
 				type : 'delete',
-				url : '/businessLogREST/'+lno,
+				url : '/businessLogREST/' + lno,
 				headers : {
 					"Content-Type" : "application/json",
 					"X-HTTP-Method-Override" : "DELETE"
@@ -295,13 +314,13 @@
 					}
 				}
 			});
-	    }
+		}
 	});
-	
+
 	getTodatBusinessLog();
-	
+
 	//업무일지 쓰기, 결과 변환 버튼
-	$(document).on("click", ".btn-result" , function(e) {
+	$(document).on("click", ".btn-result", function(e) {
 		if ($(e.target).hasClass("glyphicon-remove")) {
 			$(e.target).removeClass("glyphicon-remove");
 			$(e.target).addClass("glyphicon-ok");
@@ -316,27 +335,28 @@
 			$(e.target).addClass("btn-danger");
 		}
 	});
-	
+
 	//결과 변환 RESTful
-	$(document).on("click", ".btn-result-change", function(e){
+	$(document).on("click", ".btn-result-change", function(e) {
 		var root = $(e.target).parent().parent().parent(); //tbody
 		var lno = root.parent().parent().parent().find("input");
 		var trs = root.find("tr");
-		
+
 		var sendMessage = true;
-		
+
 		var datas = new Array();
-		for(var i=0; i<trs.length;i++){
+		for (var i = 0; i < trs.length; i++) {
 			var tr = trs.eq(i);
 			var tds = tr.find("td");
-			
-			var data = new Object();			
+
+			var data = new Object();
 			var target = tds.eq(0).text();
 			var content = tds.eq(1).text();
 			var result = tds.eq(2).find(".btn-result");
-			
+
 			result = (result.attr('class').includes("btn-danger") == true ? "0" : "1");
-			if(result == "0") sendMessage = false;
+			if (result == "0")
+				sendMessage = false;
 			data.target = target;
 			data.log = content;
 			data.result = result;
@@ -344,7 +364,7 @@
 		}
 		$.ajax({
 			type : 'put',
-			url : '/businessLogREST/'+lno.val(),
+			url : '/businessLogREST/' + lno.val(),
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method-Override" : "PUT"
@@ -357,21 +377,35 @@
 			success : function(result) {
 				console.log("result: " + result);
 				if (result == "SUCCESS") {
-					if(sendMessage){
-						var n = Math.floor(Math.random()*5);
-						
-						switch(n){
-							case 0 : alert("오늘도 고생하셨습니다."); break;
-							case 1 : alert("이것 또한 지나갑니다."); break;
-							case 2 : alert("실패는 성공의 어머니 입니다."); break;
-							case 3 : alert("피가 되고 살이 되는 시간이였습니다."); break;
-							case 4 : alert("정상에서 뵙시다."); break;
+					if (sendMessage) {
+						var n = Math.floor(Math.random() * 5);
+
+						switch (n) {
+						case 0:
+							alert("오늘도 고생하셨습니다.");
+							break;
+						case 1:
+							alert("이것 또한 지나갑니다.");
+							break;
+						case 2:
+							alert("실패는 성공의 어머니 입니다.");
+							break;
+						case 3:
+							alert("피가 되고 살이 되는 시간이였습니다.");
+							break;
+						case 4:
+							alert("정상에서 뵙시다.");
+							break;
 						}
 					}
 				}
 			}
 		});
 	});
+	
+	function setTodayBusinessLogCnt(cnt){
+		$("#toDayBusinessLogCnt").html("업무일지 <string>[ "+ cnt +" ]</string>");
+	};
 </script>
 
 <%@include file="../include/footer.jsp"%>
