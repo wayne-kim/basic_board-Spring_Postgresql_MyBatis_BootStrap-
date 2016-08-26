@@ -23,15 +23,12 @@
 							<button id="previousDate" class="btn glyphicon glyphicon-chevron-left"></button>
 						</span>
 						<input id="Mydatepicker" type="text" class="form-control text-center" value="오늘날짜" data-provide="datepicker" />
-						<div class="input-group-addon">
-					    	<span id="selectDate" class="glyphicon glyphicon-search" style="cursor: pointer;"></span>
-					    </div>
 						<span class="input-group-btn">
 							<button id="nextDate" class="btn glyphicon glyphicon-chevron-right pull-right"></button>
 						</span>
 					</div>
 				</div>
-				
+
 				<div id="divTodayBusinessLog">
 					<div class="box-body">
 						<table class="table table-bordered" id="createTable">
@@ -483,13 +480,13 @@
 	$(document).on("click", "#previousDate", function() {
 		$("#divTodayBusinessLog").hide();
 		viewDate.setDate(viewDate.getDate() - 1);
-		
+
 		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
 			$("#divTodayBusinessLog").show();
-		}else{
+		} else {
 			$("#divTodayBusinessLog").hide();
 		}
-		
+
 		$("#Mydatepicker").val(getMyDateFommat(viewDate));
 		getInputBusinessLog(getMyDateFommat(viewDate));
 	});
@@ -500,7 +497,7 @@
 
 		if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
 			$("#divTodayBusinessLog").show();
-		}else{
+		} else {
 			$("#divTodayBusinessLog").hide();
 		}
 
@@ -510,10 +507,24 @@
 	$(document).ready(function() {
 		$('#Mydatepicker').datepicker({
 			format : 'yyyy-mm-dd',
-			autoclose: true
+			autoclose : true
+		}).on('changeDate', function() {
+			(function() {
+				viewDate = new Date($("#Mydatepicker").val());
+
+				$("#Mydatepicker").val(getMyDateFommat(viewDate));
+				if (getMyDateFommat(viewDate) == getMyDateFommat(new Date())) {
+					$("#divTodayBusinessLog").show();
+				} else {
+					$("#divTodayBusinessLog").hide();
+				}
+
+				getInputBusinessLog($("#Mydatepicker").val());
+			})();
 		});
 	});
-	
+
+	/*
 	$(document).on("click", "#selectDate", function(){
 		viewDate = new Date($("#Mydatepicker").val());
 		$("#Mydatepicker").val(getMyDateFommat(viewDate));
@@ -525,8 +536,9 @@
 		
 		getInputBusinessLog($("#Mydatepicker").val());
 	});
-	
-	function getMyDateFommat(date){
+	 */
+
+	function getMyDateFommat(date) {
 		var yyyy = date.getFullYear();
 		var mm = (1 + date.getMonth());
 		var dd = date.getDate()
@@ -536,7 +548,7 @@
 		if (dd < 10)
 			dd = "0" + dd;
 		var a = yyyy + "-" + mm + "-" + dd;
-		
+
 		return a;
 	}
 </script>
