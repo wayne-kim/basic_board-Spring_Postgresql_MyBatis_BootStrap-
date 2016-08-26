@@ -1,5 +1,6 @@
 package org.database.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.database.domain.BusinessLogVO;
@@ -9,5 +10,6 @@ public interface BusinessLogService {
 	public void createBusinessLog(BusinessLogVO vo) throws Exception;
 	public void updateBusinessLog(BusinessLogVO vo) throws Exception;
 	public void deleteBusinessLog(BusinessLogVO vo) throws Exception;
+	public List<BusinessLogVO> getInputDateLogs(String date) throws Exception;
 	//검색은 나중에 처리
 }

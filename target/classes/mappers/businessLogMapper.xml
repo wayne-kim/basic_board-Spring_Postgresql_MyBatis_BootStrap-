@@ -18,6 +18,13 @@
 		ORDER BY lno, regdate DESC
 	</select>
 	
+	<select id="getInputDateBusinessLogs" resultType="BusinessLogVO">
+		SELECT *
+		FROM tbl_business_log
+		WHERE to_char(regdate, 'YYYY-MM-DD') = #{regdate} AND visible = 'TRUE'
+		ORDER BY lno, regdate DESC
+	</select>
+	
 	<select id="seatchBusinessLogs" resultType="BusinessLogVO">
 		SELECT *
 		FROM tbl_business_log

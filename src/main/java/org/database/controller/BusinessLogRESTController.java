@@ -1,5 +1,6 @@
 package org.database.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -67,6 +68,18 @@ public class BusinessLogRESTController {
 			vo.setLno(lno);
 			service.deleteBusinessLog(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "{regdate}", method = RequestMethod.GET)
+	public ResponseEntity<List<BusinessLogVO>> getInputDateLogs(@PathVariable("regdate") String regdate) {
+		ResponseEntity<List<BusinessLogVO>> entity = null;
+		try {
+			entity = new ResponseEntity<List<BusinessLogVO>>(service.getInputDateLogs(regdate), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

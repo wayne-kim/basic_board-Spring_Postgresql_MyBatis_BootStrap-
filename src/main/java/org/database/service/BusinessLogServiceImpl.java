@@ -1,5 +1,6 @@
 package org.database.service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +33,11 @@ class BusinessLogServiceImpl implements BusinessLogService {
 	@Override
 	public void deleteBusinessLog(BusinessLogVO vo) throws Exception {
 		dao.deleteBusinessLog(vo);
+	}
+
+	@Override
+	public List<BusinessLogVO> getInputDateLogs(String date) throws Exception {
+		return dao.getInputDateLogs(date);
 	}
 
 }

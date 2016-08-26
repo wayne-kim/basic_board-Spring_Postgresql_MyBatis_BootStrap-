@@ -17,6 +17,7 @@
 					<h3 class="box-title">Business Log</h3>
 				</div>
 
+				<!-- 
 				<div class="box-body">
 					<div class="input-group">
 						<div class="input-group-btn search-panel">
@@ -41,6 +42,7 @@
 						</span>
 					</div>
 				</div>
+				 -->
 
 				<div class="box-body">
 					<table class="table table-bordered" id="createTable">
@@ -91,6 +93,18 @@
 				</div>
 				<div class="box-footer">
 					<button class="btn btn-success pull-right" id="addLogBtn">추가</button>
+				</div>
+
+				<div class="box-footer">
+					<div class="input-group">
+						<span class="input-group-btn">
+							<button id="previousDate" class="btn glyphicon glyphicon-chevron-left"></button>
+						</span>
+						<input id="date" type="text" class="form-control text-center" value="오늘날짜" disabled />
+						<span class="input-group-btn">
+							<button id="nextDate" class="btn glyphicon glyphicon-chevron-right pull-right" disabled="disabled"></button>
+						</span>
+					</div>
 				</div>
 				<!-- /.row -->
 			</div>
@@ -242,7 +256,7 @@
 					var target = jsonLog[j][[ 'target' ]];
 					var log = jsonLog[j][[ 'log' ]];
 					var result = jsonLog[j][[ 'result' ]];
-					console.log(result);
+					
 					tag += "<tr>";
 					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
 					tag += "<td><h5>" + target + "</h5></td>";
@@ -377,7 +391,7 @@
 				console.log("result: " + result);
 				if (result == "SUCCESS") {
 					if (sendMessage) {
-						var n = Math.floor(Math.random() * 5);
+						var n = Math.floor(Math.random() * 6);
 
 						switch (n) {
 						case 0:
@@ -395,16 +409,148 @@
 						case 4:
 							alert("정상에서 뵙시다.");
 							break;
+						case 5:
+							alert("C를 못 끝내면 사람이 아닙니다. 멘트가 마음에 안들면 너님이 바꾸세요. ㅋㅋㅋ");
+							break;
 						}
 					}
 				}
 			}
 		});
 	});
-	
-	function setTodayBusinessLogCnt(cnt){
-		$("#toDayBusinessLogCnt").html("업무일지 <string>[ "+ cnt +" ]</string>");
+
+	function setTodayBusinessLogCnt(cnt) {
+		$("#toDayBusinessLogCnt").html("업무일지 <string>[ " + cnt + " ]</string>");
 	};
+
+	var viewDate = new Date();
+	var yyyy = viewDate.getFullYear();
+	var mm = (1 + viewDate.getMonth());
+	var dd = viewDate.getDate();
+	if(mm<10) mm = "0"+mm;
+	if(dd<10) dd = "0"+dd;
+	var today = yyyy + "-" + mm + "-" + dd;
+	
+	$("#date").val(today);
+	
+	function getInputBusinessLog(a){
+		$.getJSON("/businessLogREST/"+a, function(data) {
+			$(".businessLogLi").remove();
+			setTodayBusinessLogCnt(data.length);
+			for (var i = 0; i < data.length; i++) {
+				var lno = data[i].lno;
+				var log = data[i].log;
+				var regdate = data[i].regdate;
+				var user_num = data[i].user_num;
+
+				var checkAttendance;
+
+				var obj = modelBusinessLog.clone(true, true);
+				//업무일지 번호
+				$(obj).find("input").val(lno);
+				//로그 내용
+				var jsonLog = JSON.parse(log);
+				var tag = "";
+				for (var j = 0; j < jsonLog.length; j++) {
+					var target = jsonLog[j][[ 'target' ]];
+					var log = jsonLog[j][[ 'log' ]];
+					var result = jsonLog[j][[ 'result' ]];
+					
+					tag += "<tr>";
+					//tag += "<td style='width:10px;'><button class='btn btn-danger glyphicon glyphicon-minus btn-delete'></button></td>;"
+					tag += "<td><h5>" + target + "</h5></td>";
+					tag += "<td><h5>" + log + "</h5></td>";
+					tag += "<td><button class='btn btn-result btn-result-change ";
+					if (result == "0") {
+						tag += "glyphicon glyphicon-remove btn-danger'></button></td></tr>";
+					} else {
+						tag += "glyphicon glyphicon-ok btn-success'></button></td></tr>";
+					}
+
+				}
+				$(obj).find("#businessList").append(tag);
+				//날짜
+				var date = new Date(regdate);
+
+				var hours = date.getHours();
+				var minutes = date.getMinutes();
+				if (hours < 10)
+					hours = "0" + hours;
+				if (minutes < 10)
+					minutes = "0" + minutes;
+				date = hours + ":" + minutes;
+				checkAttendance = hours + minutes + "";
+
+				//나중에 홈페이지 설정 테이블을 만들어 출근시간을 저장해두자.!				
+				if (checkAttendance > "0900") {
+					var icon = $(obj).find(".glyphicon-thumbs-up");
+					icon.removeClass("glyphicon-thumbs-up");
+					icon.removeClass("bg-blue");
+
+					icon.addClass("glyphicon-thumbs-down");
+					icon.addClass("bg-red");
+
+				}
+
+				$(obj).find(".time").text(date);
+				//유저번호
+				$(obj).find(".timeline-header").text(user_num);
+
+				$(".timeline").append(obj);
+			}
+		});
+	}
+	$(document).on("click", "#previousDate", function(){
+		viewDate.setDate(viewDate.getDate() - 1);
+		var yyyy = viewDate.getFullYear();
+		var mm = (1 + viewDate.getMonth());
+		var dd = viewDate.getDate();
+		
+		if(mm<10) mm = "0"+mm;
+		if(dd<10) dd = "0"+dd;
+		var a = yyyy + "-" + mm + "-" + dd;
+		$("#date").val(a);
+		
+		var now = new Date();
+		var nowyyyy = now.getFullYear();
+		var nowmm = (1 + now.getMonth());
+		var nowdd = now.getDate();
+		
+		if(nowmm<10) nowmm = "0"+nowmm;
+		if(nowdd<10) nowdd = "0"+nowdd;
+		var b = nowyyyy + "-" + nowmm + "-" + nowdd;
+		if(a < b){
+			$("#nextDate").prop('disabled', false);
+		}
+		
+		getInputBusinessLog(a);
+	});
+	
+	$(document).on("click", "#nextDate", function(){
+		viewDate.setDate(viewDate.getDate() + 1);
+		var yyyy = viewDate.getFullYear();
+		var mm = (1 + viewDate.getMonth());
+		var dd = viewDate.getDate()
+		
+		if(mm<10) mm = "0"+mm;
+		if(dd<10) dd = "0"+dd;
+		var a = yyyy + "-" + mm + "-" + dd;
+		$("#date").val(a);
+		
+		var now = new Date();
+		var nowyyyy = now.getFullYear();
+		var nowmm = (1 + now.getMonth());
+		var nowdd = now.getDate();
+		
+		if(nowmm<10) nowmm = "0"+nowmm;
+		if(nowdd<10) nowdd = "0"+nowdd;
+		var b = nowyyyy + "-" + nowmm + "-" + nowdd;
+		if(a >= b){
+			$("#nextDate").prop('disabled', true);
+		}
+		
+		getInputBusinessLog(a);
+	});
 </script>
 
 <%@include file="../include/footer.jsp"%>

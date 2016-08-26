@@ -1,5 +1,6 @@
 package org.database.persistence;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,5 +35,10 @@ public class BusinessLogDAOImpl implements BusinessLogDAO {
 	@Override
 	public void deleteBusinessLog(BusinessLogVO vo) throws Exception {
 		session.delete(namespace+".deleteBusinessLog", vo);
+	}
+
+	@Override
+	public List<BusinessLogVO> getInputDateLogs(String date) throws Exception {
+		return session.selectList(namespace+".getInputDateBusinessLogs", date);
 	}
 }
