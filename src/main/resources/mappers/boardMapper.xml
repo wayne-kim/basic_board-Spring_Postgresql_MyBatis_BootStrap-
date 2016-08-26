@@ -99,4 +99,20 @@
 	]]>
 		<include refid="search"></include>
 	</select>
+	
+	<update id="updateCommentCnt">
+	UPDATE tbl_board 
+	SET comment_cnt = (
+		SELECT count(cno)
+		FROM tbl_board_comment
+		WHERE bno = #{bno} AND visible ='TRUE'
+	) 
+	WHERE bno = #{bno} AND visible = 'TRUE'
+	</update>
+	
+	<update id="updateViewCnt">
+	UPDATE tbl_board
+	SET viewcnt = viewcnt + 1
+	WHERE bno = #{bno} AND visible = 'TRUE'
+	</update>
 </mapper>

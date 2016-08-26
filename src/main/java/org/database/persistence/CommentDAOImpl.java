@@ -53,4 +53,8 @@ public class CommentDAOImpl implements CommentDAO {
 		return session.selectOne(namespace + ".count", bno);
 	}
 
+	@Override
+	public int getBno(Integer cno) throws Exception {
+		return session.selectOne(namespace+".getBno", cno);
+	}
 }

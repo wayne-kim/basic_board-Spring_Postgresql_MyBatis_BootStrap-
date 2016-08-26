@@ -73,7 +73,7 @@
 			<!-- The time line -->
 			<ul class="timeline">
 				<!-- timeline time label -->
-				<li class="time-label" id="commentsDiv"><span class="bg-green"> 코멘트 보기 </span></li>
+				<li class="time-label" id="commentsDiv"><span class="bg-green"> 코멘트 리스트 <small id="commentCntSmall"> [ ${boardVO.comment_cnt} ]</small> </span></li>
 			</ul>
 
 			<div class='text-center'>
@@ -125,8 +125,10 @@
 		});
 
 		$("#btn-delete").on("click", function() {
-			formObj.attr("action", "/board/removePage");
-			formObj.submit();
+			if(confirm("삭제하시겠습니까?")){
+				formObj.attr("action", "/board/removePage");
+				formObj.submit();				
+			}
 		});
 
 		$("#btn-list").on("click", function() {
@@ -187,6 +189,7 @@
 			printPaging(data.pageMaker, $(".pagination"));
 
 			$("#modifyModal").modal('hide');
+			$("#commentCntSmall").html("[ "+ data.pageMaker.totalCount+" ]");
 		});
 	}
 
@@ -304,6 +307,8 @@
 					}
 			}});
 	});
+	
+	getPage("/comment/" + bno + "/1");
 </script>
 </div>
 <!-- /.content-wrapper -->

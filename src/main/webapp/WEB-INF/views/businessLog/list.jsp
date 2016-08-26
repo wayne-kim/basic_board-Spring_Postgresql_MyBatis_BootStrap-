@@ -250,6 +250,7 @@
 				date = hours + ":" + minutes;
 				checkAttendance = hours + minutes + "";
 
+				//나중에 홈페이지 설정 테이블을 만들어 출근시간을 저장해두자.!				
 				if (checkAttendance > "0900") {
 					var icon = $(obj).find(".glyphicon-thumbs-up");
 					icon.removeClass("glyphicon-thumbs-up");

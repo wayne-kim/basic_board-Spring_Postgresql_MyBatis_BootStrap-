@@ -6,17 +6,24 @@ import javax.inject.Inject;
 
 import org.database.domain.CommentVO;
 import org.database.domain.Criteria;
+import org.database.persistence.BoardDAO;
 import org.database.persistence.CommentDAO;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommentServieImpl implements CommentService {
 	@Inject
 	private CommentDAO dao;
 	
+	@Inject
+	private BoardDAO boardDAO;
+	
+	@Transactional
 	@Override
 	public void addComment(CommentVO vo) throws Exception {
 		dao.create(vo);
+		boardDAO.updateCommentCnt(vo.getBno(), 1);
 	}
 
 	@Override
@@ -31,7 +38,9 @@ public class CommentServieImpl implements CommentService {
 
 	@Override
 	public void removeComment(Integer cno) throws Exception {
+		int bno = dao.getBno(cno);
 		dao.delete(cno);
+		boardDAO.updateCommentCnt(bno, -1);
 	}
 
 	@Override

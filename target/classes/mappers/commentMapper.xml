@@ -38,4 +38,10 @@
 		FROM tbl_board_comment 
 		WHERE bno = #{bno} AND visible='TRUE'
 	</select>
+	
+	<select id="getBno" resultType="int">
+		SELECT bno 
+		FROM tbl_board_comment
+		WHERE cno = #{cno}
+	</select>
 </mapper>

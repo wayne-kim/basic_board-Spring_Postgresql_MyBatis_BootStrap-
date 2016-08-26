@@ -11,7 +11,15 @@ public class BoardVO {
 	private Date revdate;
 	private int viewcnt;
 	private Boolean visible;
+	private int comment_cnt;
 	
+	
+	public int getComment_cnt() {
+		return comment_cnt;
+	}
+	public void setComment_cnt(int comment_cnt) {
+		this.comment_cnt = comment_cnt;
+	}
 	public Integer getBno() {
 		return bno;
 	}
@@ -63,6 +71,6 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate=" + regdate + ", revdate=" + revdate + ", viewcnt=" + viewcnt
-				+ ", visible=" + visible + "]";
+				+ ", visible=" + visible + ", comment_cnt=" + comment_cnt + "]";
 	}
 }

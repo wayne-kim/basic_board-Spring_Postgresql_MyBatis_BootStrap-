@@ -22,4 +22,9 @@ public interface BoardDAO {
   public List<BoardVO> listSearch(SearchCriteria cri)throws Exception;
   public int listSearchCount(SearchCriteria cri)throws Exception;
 
+  //코멘드 수 세기
+  public void updateCommentCnt(Integer bno, int amount) throws Exception;
+  
+  //조회수 갱신
+  public void updateViewCnt(Integer bno) throws Exception;
 }
