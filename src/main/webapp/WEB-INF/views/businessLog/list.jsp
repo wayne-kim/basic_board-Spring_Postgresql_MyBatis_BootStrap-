@@ -154,7 +154,8 @@
 	$(".table").on("click", ".dropdown-menu li", function() {
 		var target = $(this);
 		var input = target.parent().parent().parent().find("input");
-		input.val(target.text());
+		var text = target.text();
+		input.val(text.trim());
 	});
 
 	//업무일지 쓰기 RESTful
@@ -249,10 +250,8 @@
 					tag += "<td><button class='btn btn-result btn-result-change ";
 					if (result == "0") {
 						tag += "glyphicon glyphicon-remove btn-danger'></button></td></tr>";
-						console.log("왜 여기야?");
 					} else {
 						tag += "glyphicon glyphicon-ok btn-success'></button></td></tr>";
-						console.log("성공으로 안 나오나?");
 					}
 
 				}

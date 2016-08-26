@@ -15,6 +15,22 @@ public class BusinessLogVO {
 	//사용자 입력 값
 	String log;
 
+	//사용자 아이디와  별명
+	String user_id;
+	String alias;
+
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+	public String getAlias() {
+		return alias;
+	}
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
 	public Integer getLno() {
 		return lno;
 	}
@@ -53,6 +69,7 @@ public class BusinessLogVO {
 	}
 	@Override
 	public String toString() {
-		return "BusinessLogVO [lno=" + lno + ", regdate=" + regdate + ", revdate=" + revdate + ", visible=" + visible + ", user_num=" + user_num + ", log=" + log + "]";
+		return "BusinessLogVO [lno=" + lno + ", regdate=" + regdate + ", revdate=" + revdate + ", visible=" + visible + ", user_num=" + user_num + ", log=" + log + ", user_id="
+				+ user_id + ", alias=" + alias + "]";
 	}
 }
