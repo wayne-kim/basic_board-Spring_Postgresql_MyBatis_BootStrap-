@@ -22,7 +22,7 @@
 						<span class="input-group-btn">
 							<button id="previousDate" class="btn glyphicon glyphicon-chevron-left"></button>
 						</span>
-						<input id="Mydatepicker" type="text" class="form-control text-center" value="오늘날짜" data-provide="datepicker" />
+						<input id="Mydatepicker" type="text" class="form-control text-center" data-provide="datepicker" style="cursor: pointer;"/>
 						<span class="input-group-btn">
 							<button id="nextDate" class="btn glyphicon glyphicon-chevron-right pull-right"></button>
 						</span>
