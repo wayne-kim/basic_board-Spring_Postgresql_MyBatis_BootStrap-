@@ -25,8 +25,7 @@
 	<!-- 게시물 삭제 -->
 	<update id="delete">
 		UPDATE tbl_board SET visible='FALSE'
-		WHERE bno =
-		#{bno}
+		WHERE bno = #{bno}
 	</update>
 
 	<select id="listPage" resultType="BoardVO">
@@ -124,17 +123,17 @@
 	<select id="getAttach" resultType="string">
 	SELECT full_name
 	FROM tbl_attach
-	WHERE bno = #{bno} ORDER BY regdate
+	WHERE bno = #{bno} AND visible ='TRUE' ORDER BY regdate
 	</select>
-	<!-- 
+
 	<update id="deleteAttach">
-	UPDATE tbl_attach SET visible = 'TRUE' 
+	UPDATE tbl_attach
+	SET visible = 'FALSE' 
 	WHERE bno = #{bno}
 	</update>
-	
+	 
 	<insert id="replaceAttach">
 	INSERT INTO tbl_attach(file_name, bno) 
-	VALUES (#{fileName), #{bno})
+	VALUES (#{fileName}, #{bno})
 	</insert>
-	 -->
 </mapper>

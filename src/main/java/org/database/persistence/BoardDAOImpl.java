@@ -102,11 +102,10 @@ public class BoardDAOImpl implements BoardDAO {
 	public List<String> getAttach(Integer bno) throws Exception {
 		return session.selectList(namespace+".getAttach", bno);
 	}
-
-	/*
+	//파일 수정 삭제
 	@Override
 	public void deleteAttach(Integer bno) throws Exception {
-		session.update(namespace+"deleteAttach", bno);
+		session.update(namespace+".deleteAttach", bno);
 	}
 
 	@Override
@@ -118,5 +117,4 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		session.insert(namespace+".replaceAttach", paramMap);
 	}
-	*/
 }

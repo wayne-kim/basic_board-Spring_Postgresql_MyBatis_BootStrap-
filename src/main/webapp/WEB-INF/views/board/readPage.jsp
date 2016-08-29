@@ -168,7 +168,25 @@
 		});
 
 		$("#btn-delete").on("click", function() {
+			var commentCnt = $(".commentLi").length;
+			
+			if(commentCnt > 0){
+				alert("코멘트가 달린 게시물은 삭제할 수 없습니다.");
+				return;
+			}
+			
 			if (confirm("삭제하시겠습니까?")) {
+				var arr = [];
+				$(".uploadList li").each(function(index){
+					arr.push($(this).attr("data-src"));
+				});
+				
+				if(arr.length > 0){
+					$.post("/deleteAllFiles", {files:arr},function(){
+						
+					});
+				}
+				
 				formObj.attr("action", "/board/removePage");
 				formObj.submit();
 			}
