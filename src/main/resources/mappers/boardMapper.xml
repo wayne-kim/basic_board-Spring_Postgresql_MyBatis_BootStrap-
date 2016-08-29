@@ -126,4 +126,15 @@
 	FROM tbl_attach
 	WHERE bno = #{bno} ORDER BY regdate
 	</select>
+	<!-- 
+	<update id="deleteAttach">
+	UPDATE tbl_attach SET visible = 'TRUE' 
+	WHERE bno = #{bno}
+	</update>
+	
+	<insert id="replaceAttach">
+	INSERT INTO tbl_attach(file_name, bno) 
+	VALUES (#{fileName), #{bno})
+	</insert>
+	 -->
 </mapper>
