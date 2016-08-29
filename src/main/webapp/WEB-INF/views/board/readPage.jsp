@@ -1,8 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%@include file="../include/header.jsp"%>
+<script type="text/javascript" src="/resources/js/upload.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 <!-- Main content -->
+<style type="text/css">
+.popup {
+	position: absolute;
+}
+
+.back {
+	background-color: gray;
+	opacity: 0.5;
+	width: 100%;
+	height: 300%;
+	overflow: hidden;
+	z-index: 1101;
+}
+
+.front {
+	z-index: 1110;
+	opacity: 1;
+	boarder: 1px;
+	margin: auto;
+}
+
+.show {
+	position: relative;
+	max-width: 1200px;
+	max-height: 800px;
+	overflow: auto;
+}
+</style>
+
+<div class='popup back' style="display: none;"></div>
+<div id="popup_front" class='popup front' style="display: none;">
+	<img id="popup_img">
+</div>
 <section class="content">
 	<div class="row">
 		<!-- left column -->
@@ -39,6 +73,11 @@
 				<!-- /.box-body -->
 
 				<div class="box-footer">
+					<ul class="mailbox-attachments clearfix uploadedList">
+					</ul>
+					<div>
+						<hr>
+					</div>
 					<button type="submit" class="btn btn-warning">수정</button>
 					<button type="submit" class="btn btn-danger" id="btn-delete">삭제</button>
 					<button type="submit" class="btn btn-primary" id="btn-list">목록</button>
@@ -73,7 +112,11 @@
 			<!-- The time line -->
 			<ul class="timeline">
 				<!-- timeline time label -->
-				<li class="time-label" id="commentsDiv"><span class="bg-green"> 코멘트 리스트 <small id="commentCntSmall"> [ ${boardVO.comment_cnt} ]</small> </span></li>
+				<li class="time-label" id="commentsDiv">
+					<span class="bg-green">
+						코멘트 리스트 <small id="commentCntSmall"> [ ${boardVO.comment_cnt} ]</small>
+					</span>
+				</li>
 			</ul>
 
 			<div class='text-center'>
@@ -125,9 +168,9 @@
 		});
 
 		$("#btn-delete").on("click", function() {
-			if(confirm("삭제하시겠습니까?")){
+			if (confirm("삭제하시겠습니까?")) {
 				formObj.attr("action", "/board/removePage");
-				formObj.submit();				
+				formObj.submit();
 			}
 		});
 
@@ -138,6 +181,16 @@
 		});
 
 	});
+</script>
+
+<script id="templateAttach" type="text/x-handlebars-template">
+<li data-src='{{fullName}}'>
+  <span class="mailbox-attachment-icon has-img"><img src="{{imgsrc}}" alt="Attachment"></span>
+  <div class="mailbox-attachment-info">
+	<a href="{{getLink}}" class="mailbox-attachment-name">{{fileName}}</a>
+	</span>
+  </div>
+</li>                
 </script>
 
 <script id="template" type="text/x-handlebars-template">
@@ -189,7 +242,7 @@
 			printPaging(data.pageMaker, $(".pagination"));
 
 			$("#modifyModal").modal('hide');
-			$("#commentCntSmall").html("[ "+ data.pageMaker.totalCount+" ]");
+			$("#commentCntSmall").html("[ " + data.pageMaker.totalCount + " ]");
 		});
 	}
 
@@ -257,58 +310,104 @@
 			}
 		});
 	});
-	
-	$(".timeline").on("click", ".commentLi", function(event){
+
+	$(".timeline").on("click", ".commentLi", function(event) {
 		var comment = $(this);
-		
+
 		$("#commentText").val(comment.find(".timeline-body").text());
 		$(".modal-title").html(comment.attr("data-cno"));
 	});
-	
-	$("#commentModBtn").on("click",function(){
-		  
-		  var cno = $(".modal-title").html();
-		  var commentText = $("#commentText").val();
-		  
-		  $.ajax({
-				type:'put',
-				url:'/comment/'+cno,
-				headers: { 
-				      "Content-Type": "application/json",
-				      "X-HTTP-Method-Override": "PUT" },
-				data:JSON.stringify({content:commentText}), 
-				dataType:'text', 
-				success:function(result){
-					console.log("result: " + result);
-					if(result == 'SUCCESS'){
-						alert("수정 되었습니다.");
-						getPage("/comment/"+bno+"/"+commentPage );
-					}
-			}});
+
+	$("#commentModBtn").on("click", function() {
+
+		var cno = $(".modal-title").html();
+		var commentText = $("#commentText").val();
+
+		$.ajax({
+			type : 'put',
+			url : '/comment/' + cno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			data : JSON.stringify({
+				content : commentText
+			}),
+			dataType : 'text',
+			success : function(result) {
+				console.log("result: " + result);
+				if (result == 'SUCCESS') {
+					alert("수정 되었습니다.");
+					getPage("/comment/" + bno + "/" + commentPage);
+				}
+			}
+		});
 	});
-	
-	$("#commentDelBtn").on("click",function(){
-		  
-		  var cno = $(".modal-title").html();
-		  var commentText = $("#commentText").val();
-		  
-		  $.ajax({
-				type:'delete',
-				url:'/comment/'+cno,
-				headers: { 
-				      "Content-Type": "application/json",
-				      "X-HTTP-Method-Override": "DELETE" },
-				dataType:'text', 
-				success:function(result){
-					console.log("result: " + result);
-					if(result == 'SUCCESS'){
-						alert("삭제 되었습니다.");
-						getPage("/comment/"+bno+"/"+commentPage );
-					}
-			}});
+
+	$("#commentDelBtn").on("click", function() {
+
+		var cno = $(".modal-title").html();
+		var commentText = $("#commentText").val();
+
+		$.ajax({
+			type : 'delete',
+			url : '/comment/' + cno,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : 'text',
+			success : function(result) {
+				console.log("result: " + result);
+				if (result == 'SUCCESS') {
+					alert("삭제 되었습니다.");
+					getPage("/comment/" + bno + "/" + commentPage);
+				}
+			}
+		});
 	});
-	
+
 	getPage("/comment/" + bno + "/1");
+
+	//파일 처리
+	var bno = ${boardVO.bno};
+	var template = Handlebars.compile($("#templateAttach").html());
+
+	$.getJSON("/board/getAttach/" + bno, function(list) {
+		$(list).each(function() {
+
+			var fileInfo = getFileInfo(this);
+
+			var html = template(fileInfo);
+
+			$(".uploadedList").append(html);
+
+		});
+	});
+	
+	$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event){
+		
+		var fileLink = $(this).attr("href");
+		
+		if(checkImageType(fileLink)){
+			
+			event.preventDefault();
+					
+			var imgTag = $("#popup_img");
+			imgTag.attr("src", fileLink);
+			
+			console.log(imgTag.attr("src"));
+					
+			$(".popup").show('slow');
+			imgTag.addClass("show");		
+		}	
+	});
+	
+	$("#popup_img").on("click", function(){
+		
+		$(".popup").hide('slow');
+		
+	});	
 </script>
 </div>
 <!-- /.content-wrapper -->

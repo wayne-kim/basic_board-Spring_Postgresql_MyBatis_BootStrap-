@@ -383,7 +383,9 @@
                 <li><a href="/board/list"><i class="fa fa-circle-o"></i> Board</a></li>
                 <li><a href="/login/doorFront"><i class="fa fa-circle-o"></i> Login</a></li>
                 <li><a href="/businessLog/list"><i class="fa fa-circle-o"></i> Business Log</a></li>
+                <!-- 
                 <li><a href="/uploadForm"><i class="fa fa-circle-o"></i> File Board</a></li>
+                 -->
               </ul>
             </li>
             <!-- 

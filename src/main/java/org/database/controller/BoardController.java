@@ -1,19 +1,28 @@
 package org.database.controller;
 
+import java.io.File;
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.database.domain.BoardVO;
 import org.database.domain.SearchCriteria;
 import org.database.service.BoardService;
-
+import org.database.util.MediaUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -24,6 +33,9 @@ public class BoardController {
 
 	@Inject
 	private BoardService service;
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
 
 	// 등록
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -99,5 +111,33 @@ public class BoardController {
 		logger.info(rttr.toString());
 		
 		return "redirect:/board/list";
+	}
+	
+	@RequestMapping("/getAttach/{bno}")
+	@ResponseBody
+	public List<String> getAttach(@PathVariable("bno") Integer bno) throws Exception{
+		return service.getAttach(bno);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
+	public ResponseEntity<String> deleteFile(String fileName) {
+
+		logger.info("delete file: " + fileName);
+
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+		MediaType mType = MediaUtils.getMediaType(formatName);
+
+		if (mType != null) {
+
+			String front = fileName.substring(0, 12);
+			String end = fileName.substring(14);
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+		}
+
+		new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
+
+		return new ResponseEntity<String>("deleted", HttpStatus.OK);
 	}
 }

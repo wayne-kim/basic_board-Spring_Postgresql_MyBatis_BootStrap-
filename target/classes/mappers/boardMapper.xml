@@ -115,4 +115,15 @@
 	SET viewcnt = viewcnt + 1
 	WHERE bno = #{bno} AND visible = 'TRUE'
 	</update>
+	
+	<insert id="addAttach">
+	INSERT INTO tbl_attach(full_name, bno)
+	VALUES (#{fullNmae}, (SELECT max(bno) FROM tbl_board))
+	</insert>
+	
+	<select id="getAttach" resultType="string">
+	SELECT full_name
+	FROM tbl_attach
+	WHERE bno = #{bno} ORDER BY regdate
+	</select>
 </mapper>

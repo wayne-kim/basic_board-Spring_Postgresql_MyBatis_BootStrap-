@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
   "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,172 +33,164 @@ small {
 			event.preventDefault();
 		});
 
-		$(".fileDrop").on("drop", function(event){
-			event.preventDefault();
-			
-			var files = event.originalEvent.dataTransfer.files;
-			
-			var file = files[0];
+		$(".fileDrop").on(
+				"drop",
+				function(event) {
+					event.preventDefault();
 
-			//console.log(file);
-			
-			var formData = new FormData();
-			
-			formData.append("file", file);
-			
-			$.ajax({
-				  url: '/uploadAjax',
-				  data: formData,
-				  dataType:'text',
-				  processData: false,
-				  contentType: false,
-				  type: 'POST',
-				  success: function(data){
-					  
-					  var str ="";
-					  
-					  if(checkImageType(data)){
-						  str ="<div><a href=displayFile?fileName="+getImageLink(data)+">"
-								  +"<img src='displayFile?fileName="+data+"'/>"
-								  +"</a><small data-src="+data+">X</small></div>";
-					  }else{
-						  str = "<div><a href='displayFile?fileName="+data+"'>" 
-								  + getOriginalName(data)+"</a>"
-								  +"<small data-src="+data+">X</small></div></div>";
-					  }
-					  
-					  $(".uploadedList").append(str);
-				  }
-				});	
-		});
+					var files = event.originalEvent.dataTransfer.files;
 
+					var file = files[0];
 
-		$(".uploadedList").on("click", "small", function(event){
-			
-				 var that = $(this);
-			
-			   $.ajax({
-				   url:"deleteFile",
-				   type:"post",
-				   data: {fileName:$(this).attr("data-src")},
-				   dataType:"text",
-				   success:function(result){
-					   if(result == 'deleted'){
-						   that.parent("div").remove();
-					   }
-				   }
-			   });
-		});
-		
-		
-/* 		
-$(".fileDrop").on("drop", function(event) {
-	event.preventDefault();
-	
-	var files = event.originalEvent.dataTransfer.files;
-	
-	var file = files[0];
+					//console.log(file);
 
-	//console.log(file);
-	var formData = new FormData();
-	
-	formData.append("file", file);
+					var formData = new FormData();
 
-	
-	$.ajax({
-		  url: '/uploadAjax',
-		  data: formData,
-		  dataType:'text',
-		  processData: false,
-		  contentType: false,
-		  type: 'POST',
-		  success: function(data){
-			  
-			  var str ="";
-			  
-			  console.log(data);
-			  console.log(checkImageType(data));
-			  
-			  if(checkImageType(data)){
-				  str ="<div><a href='displayFile?fileName="+getImageLink(data)+"'>"
-						  +"<img src='displayFile?fileName="+data+"'/></a>"
-						  +data +"</div>";
-			  }else{
-				  str = "<div><a href='displayFile?fileName="+data+"'>" 
-						  + getOriginalName(data)+"</a></div>";
-			  }
-			  
-			  $(".uploadedList").append(str);
-		  }
-		});			
-});	 */
+					formData.append("file", file);
 
+					$.ajax({
+						url : '/uploadAjax',
+						data : formData,
+						dataType : 'text',
+						processData : false,
+						contentType : false,
+						type : 'POST',
+						success : function(data) {
 
-function getOriginalName(fileName){	
+							var str = "";
 
-	if(checkImageType(fileName)){
-		return;
-	}
-	
-	var idx = fileName.indexOf("_") + 1 ;
-	return fileName.substr(idx);
-	
-}
+							if (checkImageType(data)) {
+								str = "<div><a href=displayFile?fileName=" + getImageLink(data) + ">" + "<img src='displayFile?fileName=" + data
+										+ "'/>" + "</a><small data-src="+data+">X</small></div>";
+							} else {
+								str = "<div><a href='displayFile?fileName=" + data + "'>" + getOriginalName(data) + "</a>"
+										+ "<small data-src="+data+">X</small></div></div>";
+							}
 
-
-function getImageLink(fileName){
-	
-	if(!checkImageType(fileName)){
-		return;
-	}
-	var front = fileName.substr(0,12);
-	var end = fileName.substr(14);
-	
-	return front + end;
-	
-}
-
-
-
-
-/* 		$(".fileDrop").on("drop", function(event) {
-			event.preventDefault();
-			
-			var files = event.originalEvent.dataTransfer.files;
-			
-			var file = files[0];
-
-			//console.log(file);
-			var formData = new FormData();
-			
-			formData.append("file", file);
-			
-			$.ajax({
-				  url: '/uploadAjax',
-				  data: formData,
-				  dataType:'text',
-				  processData: false,
-				  contentType: false,
-				  type: 'POST',
-				  success: function(data){
-					 	
-					  alert(data);
-					 
-				  }
+							$(".uploadedList").append(str);
+						}
+					});
 				});
-			
-		}); */
-		
 
-	function checkImageType(fileName){
+		$(".uploadedList").on("click", "small", function(event) {
+
+			var that = $(this);
+
+			$.ajax({
+				url : "deleteFile",
+				type : "post",
+				data : {
+					fileName : $(this).attr("data-src")
+				},
+				dataType : "text",
+				success : function(result) {
+					if (result == 'deleted') {
+						that.parent("div").remove();
+					}
+				}
+			});
+		});
+
+		/* 		
+		 $(".fileDrop").on("drop", function(event) {
+		 event.preventDefault();
 		
-		var pattern = /jpg|gif|png|jpeg/i;
+		 var files = event.originalEvent.dataTransfer.files;
 		
-		return fileName.match(pattern);
+		 var file = files[0];
+
+		 //console.log(file);
+		 var formData = new FormData();
 		
-	}
+		 formData.append("file", file);
+
 		
+		 $.ajax({
+		 url: '/uploadAjax',
+		 data: formData,
+		 dataType:'text',
+		 processData: false,
+		 contentType: false,
+		 type: 'POST',
+		 success: function(data){
 		
+		 var str ="";
+		
+		 console.log(data);
+		 console.log(checkImageType(data));
+		
+		 if(checkImageType(data)){
+		 str ="<div><a href='displayFile?fileName="+getImageLink(data)+"'>"
+		 +"<img src='displayFile?fileName="+data+"'/></a>"
+		 +data +"</div>";
+		 }else{
+		 str = "<div><a href='displayFile?fileName="+data+"'>" 
+		 + getOriginalName(data)+"</a></div>";
+		 }
+		
+		 $(".uploadedList").append(str);
+		 }
+		 });			
+		 });	 */
+
+		function getOriginalName(fileName) {
+
+			if (checkImageType(fileName)) {
+				return;
+			}
+
+			var idx = fileName.indexOf("_") + 1;
+			return fileName.substr(idx);
+
+		}
+
+		function getImageLink(fileName) {
+
+			if (!checkImageType(fileName)) {
+				return;
+			}
+			var front = fileName.substr(0, 12);
+			var end = fileName.substr(14);
+
+			return front + end;
+
+		}
+
+		/* 		$(".fileDrop").on("drop", function(event) {
+		 event.preventDefault();
+		
+		 var files = event.originalEvent.dataTransfer.files;
+		
+		 var file = files[0];
+
+		 //console.log(file);
+		 var formData = new FormData();
+		
+		 formData.append("file", file);
+		
+		 $.ajax({
+		 url: '/uploadAjax',
+		 data: formData,
+		 dataType:'text',
+		 processData: false,
+		 contentType: false,
+		 type: 'POST',
+		 success: function(data){
+		
+		 alert(data);
+		
+		 }
+		 });
+		
+		 }); */
+
+		function checkImageType(fileName) {
+
+			var pattern = /jpg|gif|png|jpeg/i;
+
+			return fileName.match(pattern);
+
+		}
 	</script>
 
 </body>

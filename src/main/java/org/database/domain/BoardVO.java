@@ -1,5 +1,6 @@
 package org.database.domain;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class BoardVO {
@@ -13,7 +14,14 @@ public class BoardVO {
 	private Boolean visible;
 	private int comment_cnt;
 	
+	private String[] files;
 	
+	public String[] getFiles() {
+		return files;
+	}
+	public void setFiles(String[] files) {
+		this.files = files;
+	}
 	public int getComment_cnt() {
 		return comment_cnt;
 	}
@@ -71,6 +79,6 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer + ", regdate=" + regdate + ", revdate=" + revdate + ", viewcnt=" + viewcnt
-				+ ", visible=" + visible + ", comment_cnt=" + comment_cnt + "]";
+				+ ", visible=" + visible + ", comment_cnt=" + comment_cnt + ", files=" + Arrays.toString(files) + "]";
 	}
 }

@@ -27,4 +27,8 @@ public interface BoardDAO {
   
   //조회수 갱신
   public void updateViewCnt(Integer bno) throws Exception;
+  
+  //파일 첨부
+  public void addAttach(String fullName) throws Exception;
+  public List<String> getAttach(Integer bno) throws Exception;
 }
