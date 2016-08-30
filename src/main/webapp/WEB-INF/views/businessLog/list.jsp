@@ -189,7 +189,7 @@
 			},
 			dataType : 'text',
 			data : JSON.stringify({
-				user_num : 3,
+				user_num : ${login.user_num},
 				log : JSON.stringify(datas)
 			}),
 			success : function(result) {
@@ -293,7 +293,7 @@
 				},
 				dataType : 'text',
 				data : JSON.stringify({
-					user_num : 3
+					user_num : ${login.user_num}
 				}),
 				success : function(result) {
 					if (result == "SUCCESS") {
@@ -360,7 +360,7 @@
 			},
 			dataType : 'text',
 			data : JSON.stringify({
-				user_num : 3,
+				user_num : ${login.user_num},
 				log : JSON.stringify(datas)
 			}),
 			success : function(result) {
