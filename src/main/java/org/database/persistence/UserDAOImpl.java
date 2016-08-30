@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.database.domain.UserVO;
+import org.database.dto.LoginDTO;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,21 +19,16 @@ public class UserDAOImpl implements UserDAO{
 
 	@Override
 	public String getTime() {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".getTime");
 	}
-
 	@Override
 	public void insertUser(UserVO vo) {
-		// TODO Auto-generated method stub
 		sqlSession.insert(namespace+".insertUser", vo);
 	}
-
 	@Override
 	public UserVO readUser(String user_id) throws Exception {
 		return (UserVO)sqlSession.selectOne(namespace+".selectUser", user_id);
 	}
-
 	@Override
 	public UserVO readWithPW(String user_id, String user_pw) throws Exception {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -41,5 +37,12 @@ public class UserDAOImpl implements UserDAO{
 		paramMap.put("user_pw", user_pw);
 		
 		return (UserVO)sqlSession.selectOne(namespace+".readWithPW", paramMap);
+	}
+
+	
+	
+	@Override
+	public UserVO login(LoginDTO dto) throws Exception {
+		return sqlSession.selectOne(namespace +".login", dto);
 	}
 }

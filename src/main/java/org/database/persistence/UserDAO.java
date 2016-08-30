@@ -1,6 +1,7 @@
 package org.database.persistence;
 
 import org.database.domain.UserVO;
+import org.database.dto.LoginDTO;
 
 public interface UserDAO {
 	public String getTime();
@@ -9,5 +10,7 @@ public interface UserDAO {
 	
 	public UserVO readUser(String user_id) throws Exception;
 	
-	public UserVO readWithPW(String user_id, String user_pw) throws Exception; 
+	public UserVO readWithPW(String user_id, String user_pw) throws Exception;
+	
+	public UserVO login(LoginDTO dto) throws Exception;
 }

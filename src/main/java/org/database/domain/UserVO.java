@@ -1,13 +1,25 @@
 package org.database.domain;
 
-import org.json.JSONObject;
-
 public class UserVO {
 	private Integer user_num;
 	private String user_id;
 	private String user_pw;
+	private String user_name;
+	private Integer user_point;
 	private Character position_id;
 	
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public Integer getUser_point() {
+		return user_point;
+	}
+	public void setUser_point(Integer user_point) {
+		this.user_point = user_point;
+	}
 	public Integer getUser_num() {
 		return user_num;
 	}
@@ -34,6 +46,7 @@ public class UserVO {
 	}
 	@Override
 	public String toString() {
-		return "UserVO [user_num=" + user_num + ", user_id=" + user_id + ", user_pw=" + user_pw + ", position_id=" + position_id + "]";
+		return "UserVO [user_num=" + user_num + ", user_id=" + user_id + ", user_pw=" + user_pw + ", user_name=" + user_name + ", user_point=" + user_point + ", position_id="
+				+ position_id + "]";
 	}
 }

@@ -36,11 +36,11 @@
       
       <header class="main-header">
         <!-- Logo -->
-        <a href="/resources/index2.html" class="logo">
+        <a href="/" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
           <span class="logo-mini"><b>DB</b></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg"><b>Database Lab</b></span>
+          <span class="logo-lg"><b>Database</b> Lab</span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">
@@ -292,6 +292,7 @@
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
           <!-- Sidebar user panel -->
+          <!-- 
           <div class="user-panel">
             <div class="pull-left image">
               <img src="/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
@@ -302,7 +303,10 @@
               <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
           </div>
+           -->
+          
           <!-- search form -->
+          <!-- 
           <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
               <input type="text" name="q" class="form-control" placeholder="Search..."/>
@@ -311,6 +315,8 @@
               </span>
             </div>
           </form>
+           -->
+           
           <!-- /.search form -->
           <!-- sidebar menu: : style can be found in sidebar.less -->
           <ul class="sidebar-menu">
@@ -373,21 +379,21 @@
               </ul>
             </li>
              -->
+             
+             <!-- 
             <li class="treeview active">
               <a href="#">
                 <i class="fa fa-edit"></i> <span>기본 기능</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-              	<!-- class="active" -->
-                <li><a href="/board/list"><i class="fa fa-circle-o"></i> Board</a></li>
-                <li><a href="/login/doorFront"><i class="fa fa-circle-o"></i> Login</a></li>
-                <li><a href="/businessLog/list"><i class="fa fa-circle-o"></i> Business Log</a></li>
-                <!-- 
+                <li class="active"><a href="/board/list"><i class="fa fa-circle-o"></i> 게시판</a></li>
+                <li><a href="/login/doorFront"><i class="fa fa-circle-o"></i> 로그인</a></li>
+                <li><a href="/businessLog/list"><i class="fa fa-circle-o"></i> 업무일지</a></li>
                 <li><a href="/uploadForm"><i class="fa fa-circle-o"></i> File Board</a></li>
-                 -->
               </ul>
             </li>
+             -->
             <!-- 
             <li class="treeview">
               <a href="#">
@@ -456,6 +462,13 @@
             <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
             <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
             -->
+            <li><a href="/"><i class="fa fa-circle-o"></i><span>홈</span></a></li>
+            <!-- 
+            <li><a href="/login/doorFront"><i class="fa fa-circle-o"></i><span>로그인</span></a></li>
+             -->
+             <li><a href="/user/login"><i class="fa fa-circle-o"></i><span>로그인</span></a></li>
+            <li><a href="/businessLog/list"><i class="fa fa-circle-o"></i><span>업무일지</span></a></li>
+            <li><a href="/board/list"><i class="fa fa-circle-o"></i><span>게시판</span></a></li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -464,6 +477,7 @@
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
         <!-- Content Header (Page header) -->
+        <!-- 
         <section class="content-header">
           <h1>
             Board Management
@@ -475,3 +489,4 @@
             <li class="active">General Elements</li>
           </ol>
         </section>
+         -->

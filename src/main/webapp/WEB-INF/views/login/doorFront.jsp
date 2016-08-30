@@ -11,7 +11,7 @@
 		<!-- left column -->
 		<div class="col-md-12">
 			<!-- general form elements -->
-			<div class="box box-primary">
+			<div class="box">
 				<div class="box-header">
 					<h3 class="box-title">LOGIN PAGE</h3>
 				</div>

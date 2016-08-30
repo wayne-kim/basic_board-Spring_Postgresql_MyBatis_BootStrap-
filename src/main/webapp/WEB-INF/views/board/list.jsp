@@ -15,7 +15,7 @@
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">BOARD</h3>
+					<h3 class="box-title">게시판</h3>
 				</div>
 
 				<div class="box-body">
@@ -39,18 +39,18 @@
 							<button class="btn btn-default" type="button" id="searchBtn">
 								<span class="glyphicon glyphicon-search"></span>
 							</button>
-							<a href="/board/register" class="btn btn-success" id="newBtn">NEW BOARD</a>
+							<a href="/board/register" class="btn btn-success" id="newBtn">추가</a>
 						</span>
 					</div>
 				</div>
 				<div class="box-body">
 					<table class="table table-bordered">
 						<tr>
-							<th style="width: 10px">BNO</th>
-							<th>TITLE</th>
-							<th>WRITER</th>
-							<th>REGDATE</th>
-							<th style="width: 60px">VIEWCNT</th>
+							<th style="width: 10px;">번호</th>
+							<th>타이틀</th>
+							<th>글쓴이</th>
+							<th>등록일시</th>
+							<th style="width: 60px">조회수</th>
 						</tr>
 
 						<c:forEach items="${list}" var="boardVO">

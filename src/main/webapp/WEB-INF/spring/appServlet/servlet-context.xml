@@ -33,6 +33,39 @@
 		<beans:constructor-arg value="D:\\Uploaded"></beans:constructor-arg>
 	</beans:bean>
 	
+	<!-- 	
+	<beans:bean id="sampleInterceptor" class="org.database.interceptor.SampleInterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/doA"/>
+			<mapping path="/doB"/>
+			<beans:ref bean="sampleInterceptor"/>
+		</interceptor>
+	</interceptors>
+	 -->
+
+	<beans:bean id="loginInterceptor" class="org.database.interceptor.LoginInterceptor">
+	</beans:bean>
+
+	<beans:bean id="authInterceptor" class="org.database.interceptor.AuthInterceptor">
+	</beans:bean>
+		
+	<interceptors>
+		<interceptor>
+			<mapping path="/user/loginPost"/>
+			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/board/list"/>
+			<mapping path="/board/register"/>
+			<mapping path="/businessLog/list"/>
+			<beans:ref bean="authInterceptor"/>
+		</interceptor>
+	</interceptors>
+	
 	<context:component-scan base-package="org.database.controller" />
 	
 </beans:beans>

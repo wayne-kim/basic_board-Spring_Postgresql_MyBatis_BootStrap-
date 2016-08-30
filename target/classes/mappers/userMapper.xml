@@ -26,4 +26,10 @@
 		SELECT * 
 		FROM tbl_user WHERE user_id = #{user_id} AND user_pw = #{user_pw}
 	</select>
+	
+	<select id="login" resultType="UserVO">
+	SELECT *
+	FROM tbl_user
+	WHERE user_id = #{user_id} AND user_pw = #{user_pw}
+	</select>
 </mapper>
