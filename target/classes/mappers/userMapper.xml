@@ -6,6 +6,7 @@
 <!-- http://www.mybatis.org/mybatis-3/ko/getting-started.html 참조 -->
 
 <mapper namespace="org.database.mapper.UserMapper">
+	<!-- 
 	<select id="getTime" resultType="String">
 		SELECT now()
 	</select>
@@ -26,10 +27,23 @@
 		SELECT * 
 		FROM tbl_user WHERE user_id = #{user_id} AND user_pw = #{user_pw}
 	</select>
+	-->
 	
 	<select id="login" resultType="UserVO">
-	SELECT *
+	SELECT user_num, user_id, position_id, user_name
 	FROM tbl_user
-	WHERE user_id = #{user_id} AND user_pw = #{user_pw}
+	WHERE user_id = #{user_id} AND user_pw = #{user_pw} AND position_id <![CDATA[<>]]> '0' 
+	</select>
+	
+	<update id="keepLogin">
+	UPDATE tbl_user 
+	SET session_key =#{sessionId}, session_limit = #{next}
+	WHERE user_id = #{user_id}
+	</update>
+	
+	<select id="checkUserWithSessionKey" resultType="UserVO">
+	SELECT user_num, user_id, user_name, position_id
+	FROM tbl_user
+	WHERE session_key = #{value} AND session_limit > now();
 	</select>
 </mapper>

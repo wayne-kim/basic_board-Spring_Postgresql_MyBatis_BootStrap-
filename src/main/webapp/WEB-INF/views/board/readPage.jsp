@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
+
 
 <%@include file="../include/header.jsp"%>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
@@ -78,8 +81,10 @@
 					<div>
 						<hr>
 					</div>
-					<button type="submit" class="btn btn-warning">수정</button>
-					<button type="submit" class="btn btn-danger" id="btn-delete">삭제</button>
+					<c:if test="${login.user_id == boardVO.writer}">
+						<button type="submit" class="btn btn-warning">수정</button>
+						<button type="submit" class="btn btn-danger" id="btn-delete">삭제</button>
+					</c:if>
 					<button type="submit" class="btn btn-primary" id="btn-list">목록</button>
 				</div>
 			</div>
@@ -91,24 +96,31 @@
 
 	<div class="row">
 		<div class="col-md-12">
-
-			<div class="box box-success">
-				<div class="box-header">
-					<h3 class="box-title">코멘트 추가 하기</h3>
+			<c:if test="${not empty login}">
+				<div class="box box-success">
+					<div class="box-header">
+						<h3 class="box-title">코멘트 추가 하기</h3>
+					</div>
+					<div class="box-body">
+						<label for="exampleInputEmail1">글쓴이</label>
+						<input class="form-control" type="text" placeholder="USER ID" id="newCommentWriter">
+						<label for="exampleInputEmail1">내용</label>
+						<input class="form-control" type="text" placeholder="Comment TEXT" id="newCommentText">
+					</div>
+					<!-- /.box-body -->
+					<div class="box-footer">
+						<button type="button" class="btn btn-primary" id="commentAddBtn">추가</button>
+					</div>
 				</div>
+			</c:if>
+			<!-- 
+			<c:if test="${empty login}">
 				<div class="box-body">
-					<label for="exampleInputEmail1">글쓴이</label>
-					<input class="form-control" type="text" placeholder="USER ID" id="newCommentWriter">
-					<label for="exampleInputEmail1">내용</label>
-					<input class="form-control" type="text" placeholder="Comment TEXT" id="newCommentText">
+					<div><a href="javascript:goLogin();">로그인</div>
 				</div>
-				<!-- /.box-body -->
-				<div class="box-footer">
-					<button type="button" class="btn btn-primary" id="commentAddBtn">추가</button>
-				</div>
-			</div>
-
-
+			</c:if>
+			 -->
+			
 			<!-- The time line -->
 			<ul class="timeline">
 				<!-- timeline time label -->
@@ -222,8 +234,9 @@
   <h3 class="timeline-header"><strong>{{cno}}</strong> -{{writer}}</h3>
   <div class="timeline-body">{{content}} </div>
     <div class="timeline-footer">
-     <a class="btn btn-primary btn-xs" 
-	    data-toggle="modal" data-target="#modifyModal">Modify</a>
+	 {{#eqCommenter writer}}
+     <a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#modifyModal">Modify</a>
+	 {{/eqCommenter}}
     </div>
   </div>			
 </li>
@@ -231,6 +244,14 @@
 </script>
 
 <script type="text/javascript">
+	Handlebars.registerHelper("eqCommenter", function(commenter, block){
+		var accum = '';
+		if(commenter == '${login.user_id}'){
+			accum += block.fn();
+		}
+		return accum;
+	});
+
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();

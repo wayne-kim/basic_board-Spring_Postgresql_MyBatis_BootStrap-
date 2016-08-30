@@ -69,7 +69,7 @@
 						</div>
 						<div class="form-group">
 							<label for="exampleInputEmail1">글쓴이</label>
-							<input type="text" name="writer" class="form-control" placeholder="Enter Writer">
+							<input type="text" name="writer" class="form-control" placeholder="Enter Writer" value="${login.user_id}" readonly>
 						</div>
 
 						<div class="form-group">

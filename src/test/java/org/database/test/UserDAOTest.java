@@ -16,12 +16,12 @@ public class UserDAOTest {
 	
 	@Inject
 	private UserDAO dao;
-	
+	/*
 	@Test
 	public void testTime() throws Exception{
 		System.out.println(dao.getTime());
 	}
-	
+	*/
 	/*
 	@Test
 	public void testInsertUser() throws Exception{
@@ -34,7 +34,7 @@ public class UserDAOTest {
 		dao.insertUser(vo);
 	}
 	*/
-	
+	/*
 	@Test
 	public void getUserById() throws Exception{
 		System.out.println(dao.readUser("member3"));
@@ -44,4 +44,5 @@ public class UserDAOTest {
 	public void getUserByIAndPw() throws Exception{
 		System.out.println(dao.readWithPW("member2", "123"));
 	}
+	*/
 }

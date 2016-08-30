@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="false"%>
 
 <%@include file="../include/header.jsp"%>
 
@@ -217,6 +216,7 @@
 			for (var i = 0; i < data.length; i++) {
 				var lno = data[i].lno;
 				var log = data[i].log;
+				var user_id = data[i].user_id;
 				var regdate = data[i].regdate;
 				var user_num = data[i].user_num;
 
@@ -271,7 +271,7 @@
 
 				$(obj).find(".time").text(date);
 				//유저번호
-				$(obj).find(".timeline-header").text(user_num);
+				$(obj).find(".timeline-header").text(user_id);
 
 				$(".timeline").append(obj);
 			}
@@ -408,6 +408,7 @@
 				var log = data[i].log;
 				var regdate = data[i].regdate;
 				var user_num = data[i].user_num;
+				var user_id =  data[i].user_id;
 
 				var checkAttendance;
 
@@ -459,7 +460,7 @@
 
 				$(obj).find(".time").text(date);
 				//유저번호
-				$(obj).find(".timeline-header").text(user_num);
+				$(obj).find(".timeline-header").text(user_id);
 
 				$(".timeline").append(obj);
 			}

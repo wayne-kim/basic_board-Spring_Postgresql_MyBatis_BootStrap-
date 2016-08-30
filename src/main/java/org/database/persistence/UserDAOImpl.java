@@ -1,5 +1,6 @@
 package org.database.persistence;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,10 +14,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDAOImpl implements UserDAO{
 	@Inject
-	private SqlSession sqlSession;
+	private SqlSession session;
 	
 	private static final String namespace = "org.database.mapper.UserMapper";
-
+	/*
 	@Override
 	public String getTime() {
 		return sqlSession.selectOne(namespace+".getTime");
@@ -38,11 +39,23 @@ public class UserDAOImpl implements UserDAO{
 		
 		return (UserVO)sqlSession.selectOne(namespace+".readWithPW", paramMap);
 	}
-
-	
-	
+	*/
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
-		return sqlSession.selectOne(namespace +".login", dto);
+		return session.selectOne(namespace +".login", dto);
+	}
+	
+	@Override
+	public void keepLogin(String user_id, String sessionId, Date next) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("user_id", user_id);
+		paramMap.put("sessionId", sessionId);
+		paramMap.put("next", next);
+		
+		session.update(namespace+".keepLogin", paramMap);
+	}
+	@Override
+	public UserVO checkUserWithSessionKey(String value) {
+		return session.selectOne(namespace+".checkUserWithSessionKey", value);
 	}
 }

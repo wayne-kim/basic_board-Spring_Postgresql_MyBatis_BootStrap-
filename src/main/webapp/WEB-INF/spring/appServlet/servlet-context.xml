@@ -59,8 +59,12 @@
 		</interceptor>
 		
 		<interceptor>
-			<mapping path="/board/list"/>
 			<mapping path="/board/register"/>
+			<mapping path="/board/modifyPage"/>
+			<mapping path="/board/removePage"/>
+			<mapping path="/board/readPage"/>
+
+			<mapping path="/board/list"/>
 			<mapping path="/businessLog/list"/>
 			<beans:ref bean="authInterceptor"/>
 		</interceptor>

@@ -1,15 +1,24 @@
 package org.database.interceptor;
 
+import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.database.domain.UserVO;
+import org.database.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.util.WebUtils;
 
 public class AuthInterceptor extends HandlerInterceptorAdapter{
+	
 	private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
+	
+	@Inject
+	private UserService service;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -20,6 +29,20 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
 			logger.info("current user is not logined");
 			
 			saveDest(request);
+			
+			Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+			
+			if(loginCookie != null){
+				
+				UserVO userVO = service.checkLoginBefore(loginCookie.getValue());
+				
+				logger.info("USERVO: " + userVO);
+				
+				if(userVO != null){
+					session.setAttribute("login", userVO);
+					return true;
+				}
+			}
 			
 			response.sendRedirect("/user/login");
 			return false;

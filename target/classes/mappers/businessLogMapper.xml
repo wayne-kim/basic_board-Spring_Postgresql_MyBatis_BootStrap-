@@ -12,15 +12,23 @@
 	</insert>
 	
 	<select id="todayBusinessLogs" resultType="BusinessLogVO">
-		SELECT *
-		FROM tbl_business_log
+		SELECT lno, regdate, user_num, log, (
+			SELECT user_id
+			FROM tbl_user
+			WHERE user_num = A.user_num
+			) AS user_id
+		FROM tbl_business_log AS A
 		WHERE to_char(regdate, 'YYYY-MM-DD') = to_char(now(), 'YYYY-MM-DD') AND visible = 'TRUE'
 		ORDER BY lno, regdate DESC
 	</select>
 	
 	<select id="getInputDateBusinessLogs" resultType="BusinessLogVO">
-		SELECT *
-		FROM tbl_business_log
+		SELECT lno, regdate, user_num, log, (
+			SELECT user_id
+			FROM tbl_user
+			WHERE user_num = A.user_num
+			) AS user_id
+		FROM tbl_business_log AS A
 		WHERE to_char(regdate, 'YYYY-MM-DD') = #{regdate} AND visible = 'TRUE'
 		ORDER BY lno, regdate DESC
 	</select>
