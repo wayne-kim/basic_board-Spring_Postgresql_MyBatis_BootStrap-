@@ -272,7 +272,12 @@
 				$(obj).find(".time").text(date);
 				//유저번호
 				$(obj).find(".timeline-header").text(user_id);
-
+				
+				if(user_id != "${login.user_id}"){
+					$(obj).find(".btnLogDelete").remove();
+					$(obj).find(".btn-result").attr("disabled",true);
+				}
+				
 				$(".timeline").append(obj);
 			}
 		});
@@ -461,7 +466,12 @@
 				$(obj).find(".time").text(date);
 				//유저번호
 				$(obj).find(".timeline-header").text(user_id);
-
+				
+				if(user_id != "${login.user_id}"){
+					$(obj).find(".btnLogDelete").remove();
+					$(obj).find(".btn-result").attr("disabled",true);
+				}
+				
 				$(".timeline").append(obj);
 			}
 		});
