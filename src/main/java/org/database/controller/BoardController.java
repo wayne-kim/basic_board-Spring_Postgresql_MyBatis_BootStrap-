@@ -130,7 +130,6 @@ public class BoardController {
 		MediaType mType = MediaUtils.getMediaType(formatName);
 
 		if (mType != null) {
-
 			String front = fileName.substring(0, 12);
 			String end = fileName.substring(14);
 			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();

@@ -13,7 +13,7 @@
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">Business Log</h3>
+					<h3 class="box-title">업무 일지</h3>
 				</div>
 
 				<div class="box-footer">

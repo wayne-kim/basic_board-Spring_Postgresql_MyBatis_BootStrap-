@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page session="true" %>
+<%@ page session="true"%>
+<%@ page import="org.database.domain.UserVO"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -296,16 +298,21 @@
                 <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
               </li>
                -->
-               <c:if test="${empty login}">
-               <li>
-               	<a href="/user/login"><i class="glyphicon glyphicon-log-in"></i></a>
-               </li>
-               </c:if>
-               <c:if test="${not empty login}">
-               <li>
-               	<a href="/user/logout"><i class="glyphicon glyphicon-log-out"></i></a>
-               </li>
-               </c:if>
+						<c:if test="${empty login}">
+							<li>
+								<a href="/user/login">
+									<i class="glyphicon glyphicon-log-in"></i>
+								</a>
+							</li>
+						</c:if>
+						<c:if test="${not empty login}">
+							<li>
+								<a href="/user/logout">
+									<i class="glyphicon glyphicon-log-out"></i>
+								</a>
+							</li>
+						</c:if>
+
 					</ul>
 				</div>
 			</nav>
@@ -495,7 +502,7 @@
 							<span>홈</span>
 						</a>
 					</li>
-					 -->             
+					 -->
 					<!-- 
 					<li>
 						<a href="/user/login">
@@ -506,14 +513,38 @@
 					 -->
 					<li>
 						<a href="/businessLog/list">
-							<i class="fa fa-circle-o"></i>
+							<i class="glyphicon glyphicon-lock"></i>
 							<span>업무일지</span>
 						</a>
 					</li>
 					<li>
 						<a href="/board/list">
-							<i class="fa fa-circle-o"></i>
+							<i class="glyphicon glyphicon-list-alt"></i>
 							<span>게시판</span>
+						</a>
+					</li>
+					<li>
+						<a href="/game/englishPuzzle">
+							<i class="glyphicon glyphicon-pencil"></i>
+							<span>영어 문장 게임</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-circle-o"></i>
+							<span>수강신청</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-circle-o"></i>
+							<span>IoT</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-circle-o"></i>
+							<span>그림판</span>
 						</a>
 					</li>
 				</ul>

@@ -30,4 +30,14 @@ public class UserServiceImpl implements UserService {
 		return dao.checkUserWithSessionKey(value);
 	}
 
+	@Override
+	public String checkOverlap(String user_id) throws Exception {
+		return dao.checkOverlap(user_id);
+	}
+
+	@Override
+	public void joinRequest(UserVO vo) throws Exception {
+		dao.joinRequest(vo);
+	}
+
 }

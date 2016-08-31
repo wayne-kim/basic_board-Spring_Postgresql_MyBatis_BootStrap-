@@ -17,29 +17,7 @@ public class UserDAOImpl implements UserDAO{
 	private SqlSession session;
 	
 	private static final String namespace = "org.database.mapper.UserMapper";
-	/*
-	@Override
-	public String getTime() {
-		return sqlSession.selectOne(namespace+".getTime");
-	}
-	@Override
-	public void insertUser(UserVO vo) {
-		sqlSession.insert(namespace+".insertUser", vo);
-	}
-	@Override
-	public UserVO readUser(String user_id) throws Exception {
-		return (UserVO)sqlSession.selectOne(namespace+".selectUser", user_id);
-	}
-	@Override
-	public UserVO readWithPW(String user_id, String user_pw) throws Exception {
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-		
-		paramMap.put("user_id", user_id);
-		paramMap.put("user_pw", user_pw);
-		
-		return (UserVO)sqlSession.selectOne(namespace+".readWithPW", paramMap);
-	}
-	*/
+
 	@Override
 	public UserVO login(LoginDTO dto) throws Exception {
 		return session.selectOne(namespace +".login", dto);
@@ -57,5 +35,15 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public UserVO checkUserWithSessionKey(String value) {
 		return session.selectOne(namespace+".checkUserWithSessionKey", value);
+	}
+
+	@Override
+	public String checkOverlap(String user_id) {
+		return session.selectOne(namespace+".checkOverlap", user_id);
+	}
+
+	@Override
+	public void joinRequest(UserVO vo) {
+		session.insert(namespace+".joinRequest", vo);
 	}
 }

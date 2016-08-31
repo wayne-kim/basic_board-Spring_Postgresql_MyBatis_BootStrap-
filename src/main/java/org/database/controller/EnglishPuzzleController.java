@@ -17,21 +17,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController2 {
+@RequestMapping("/game")
+public class EnglishPuzzleController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value = "/doA", method = RequestMethod.GET)
-	public String doA(Locale locale, Model model){
-		System.out.println("doA .....");
-		return "home";
-	}
-	
-	@RequestMapping(value = "/doB", method = RequestMethod.GET)
-	public String doB(Locale locale, Model model){
-		System.out.println("doB .....");
-		model.addAttribute("result", "DOB RESULT");
+	@RequestMapping(value = "/englishPuzzle", method = RequestMethod.GET)
+	public void englishPuzzel(Locale locale, Model model){
 		
-		return "home";
 	}
 }

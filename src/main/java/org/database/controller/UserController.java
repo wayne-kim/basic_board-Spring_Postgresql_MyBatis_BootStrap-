@@ -11,6 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.database.domain.UserVO;
 import org.database.dto.LoginDTO;
 import org.database.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,12 +25,44 @@ import org.springframework.web.util.WebUtils;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+	
 	@Inject
 	private UserService service;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void loginGET(@ModelAttribute("dto") LoginDTO dto){
-		
+		logger.info("loginGET.....");
+	}
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public void joinGET(){
+		logger.info("joinGET.....");
+	}
+	
+	@RequestMapping(value = "/checkOverlap", method = RequestMethod.POST)
+	public ResponseEntity<String> checkOverlap(String user_id){
+		logger.info("checkOverlap.....");
+		ResponseEntity<String> entity = null;
+		try {
+			String result = service.checkOverlap(user_id);
+			System.out.println(result);
+			if(result != null) entity = new ResponseEntity<String>("FAIL", HttpStatus.OK);
+			else entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	@RequestMapping(value = "/joinRequest", method = RequestMethod.POST)
+	public String joinRequest(UserVO vo) {
+		try{
+			service.joinRequest(vo);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return "home";
 	}
 	
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)

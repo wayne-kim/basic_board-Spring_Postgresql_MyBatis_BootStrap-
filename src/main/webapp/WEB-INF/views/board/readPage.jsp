@@ -76,6 +76,7 @@
 				<!-- /.box-body -->
 
 				<div class="box-footer">
+					<label for="exampleInputEmail1">파일</label>
 					<ul class="mailbox-attachments clearfix uploadedList">
 					</ul>
 					<div>

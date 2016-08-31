@@ -73,7 +73,7 @@
 						</div>
 
 						<div class="form-group">
-							<label for="exampleInputEmail1">File DROP Here</label>
+							<label for="exampleInputEmail1">파일 드래그</label>
 							<div class="fileDrop"></div>
 						</div>
 					</div>

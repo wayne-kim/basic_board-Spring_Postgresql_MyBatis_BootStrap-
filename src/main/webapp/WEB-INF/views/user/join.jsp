@@ -30,9 +30,9 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">Sign in to start your session</p>
+			<p class="login-box-msg">Join Request</p>
 
-			<form action="/user/loginPost" method="post">
+			<form action="/user/joinRequest" method="post">
 				<div class="form-group has-feedback">
 					<input type="text" name="user_id" class="form-control" placeholder="USER ID" />
 					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
@@ -41,26 +41,21 @@
 					<input type="password" name="user_pw" class="form-control" placeholder="Password" />
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
+				<div class="form-group has-feedback">
+					<input type="password" class="form-control" placeholder="Password Confirm" />
+					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+				</div>
+				<div class="form-group has-feedback">
+					<input type="text" name="user_name" class="form-control" placeholder="Name" />
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
+				</div>
 				<div class="row">
-					<div class="col-xs-8">
-						<div class="checkbox icheck">
-							<label> <input type="checkbox" name="useCookie"> Remember Me
-							</label>
-						</div>
-					</div>
-					<!-- /.col -->
+					<div class="col-xs-8"></div>
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+						<button type="submit" class="btn btn-primary btn-block btn-flat">가입 요청</button>
 					</div>
-					<!-- /.col -->
 				</div>
 			</form>
-			<!-- 
-			<a href="#">I forgot my password</a>
-			 -->
-			<br>
-			<a href="/user/join" class="text-center">Register a new membership</a>
-
 		</div>
 		<!-- /.login-box-body -->
 	</div>
@@ -79,6 +74,53 @@
 				radioClass : 'iradio_square-blue',
 				increaseArea : '20%' // optional
 			});
+		});
+
+		$("form").submit(function(event) {
+			var inputs = $("input");
+			var check = false;
+			
+			for (var i = 0; i < inputs.length; i++) {
+				var input = inputs.eq(i);
+				if (input.val() == "") {
+					input.focus();
+					alert(input.attr("placeholder") + "를 입력해주세요.");
+					check = true;
+					
+					return false;
+				}
+			}
+
+			//아이디 중복확인
+			$.ajax({
+				type : 'POST',
+				url : '/user/checkOverlap',
+				data : {
+					user_id : inputs.eq(0).val()
+				},
+				async : false,
+				success : function(result) {
+					if (result == "FAIL") {
+						alert("중복된 아이디 입니다.");
+						check = true;
+						inputs.eq(0).focus();
+					}
+				}
+			});
+			
+			//비밀번호 확인
+			if (inputs.eq(1).val() != inputs.eq(2).val()) {
+				alert("비밀번호가 서로 다릅니다.");
+				inputs.eq(1).focus();
+				return false;
+			}
+			
+			//Ajax를 위해서
+			if(check) {
+				return false;
+			}else{
+				alert("가입 요청이 되었습니다. 관리자의 승인이 될 때까지 기다려주세요.")
+			}
 		});
 	</script>
 </body>

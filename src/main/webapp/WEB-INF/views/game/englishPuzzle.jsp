@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@include file="include/header.jsp"%>
+<%@include file="../include/header.jsp"%>
 
 <!-- Main content -->
 <section class="content">
@@ -12,22 +13,15 @@
 
 			<div class="box box-primary">
 				<div class="box-header with-border">
-					<h3 class="box-title">HOME PAGE</h3>
+					<h3 class="box-title">영어 퍼즐 게임</h3>
 				</div>
-				<!-- 
-				<h2>${result}</h2>
-				<h1>${serverTime}</h1>
-				 -->
+				
 			</div>
+			<!-- /.box-body -->
 		</div>
-		<!--/.col (left) -->
 	</div>
-	<!-- /.row -->
 </section>
 <!-- /.content -->
 </div>
-
-
-<%@include file="include/footer.jsp"%>
-
-
+<!-- /.content-wrapper -->
+<%@include file="../include/footer.jsp"%>
