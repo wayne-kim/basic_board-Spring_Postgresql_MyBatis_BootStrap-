@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <%@include file="../include/header.jsp"%>
@@ -43,7 +43,7 @@
 <section class="content">
 	<div class="row">
 		<!-- left column -->
-		<div class="col-md-12">
+		<div class="col-md-10">
 			<!-- general form elements -->
 			<div class="box box-primary">
 				<div class="box-header">
@@ -88,58 +88,52 @@
 					</c:if>
 					<button type="submit" class="btn btn-primary" id="btn-list">목록</button>
 				</div>
-			</div>
-			<!-- /.box -->
-		</div>
-		<!--/.col (left) -->
 
-	</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<c:if test="${not empty login}">
-				<div class="box box-success">
-					<div class="box-header">
-						<h3 class="box-title">코멘트 추가 하기</h3>
+				<c:if test="${not empty login}">
+					<div class="box box-success">
+						<div class="box-header">
+							<h3 class="box-title">코멘트 추가 하기</h3>
+						</div>
+						<div class="box-body">
+							<label for="exampleInputEmail1">글쓴이</label>
+							<input class="form-control" type="text" placeholder="USER ID" id="newCommentWriter" value="${boardVO.writer}" readonly="readonly">
+							<label for="exampleInputEmail1">내용</label>
+							<input class="form-control" type="text" placeholder="Comment TEXT" id="newCommentText">
+						</div>
+						<!-- /.box-body -->
+						<div class="box-footer">
+							<button type="button" class="btn btn-primary" id="commentAddBtn">추가</button>
+						</div>
 					</div>
-					<div class="box-body">
-						<label for="exampleInputEmail1">글쓴이</label>
-						<input class="form-control" type="text" placeholder="USER ID" id="newCommentWriter">
-						<label for="exampleInputEmail1">내용</label>
-						<input class="form-control" type="text" placeholder="Comment TEXT" id="newCommentText">
-					</div>
-					<!-- /.box-body -->
-					<div class="box-footer">
-						<button type="button" class="btn btn-primary" id="commentAddBtn">추가</button>
-					</div>
-				</div>
-			</c:if>
-			<!-- 
+				</c:if>
+				<!-- 
 			<c:if test="${empty login}">
 				<div class="box-body">
 					<div><a href="javascript:goLogin();">로그인</div>
 				</div>
 			</c:if>
 			 -->
-			
-			<!-- The time line -->
-			<ul class="timeline">
-				<!-- timeline time label -->
-				<li class="time-label" id="commentsDiv">
-					<span class="bg-green">
-						코멘트 리스트 <small id="commentCntSmall"> [ ${boardVO.comment_cnt} ]</small>
-					</span>
-				</li>
-			</ul>
 
-			<div class='text-center'>
-				<ul id="pagination" class="pagination pagination-sm no-margin ">
-
+				<!-- The time line -->
+				<ul class="timeline">
+					<!-- timeline time label -->
+					<li class="time-label" id="commentsDiv">
+						<span class="bg-green">
+							코멘트 리스트 <small id="commentCntSmall"> [ ${boardVO.comment_cnt} ]</small>
+						</span>
+					</li>
 				</ul>
-			</div>
 
+				<div class='text-center'>
+					<ul id="pagination" class="pagination pagination-sm no-margin ">
+
+					</ul>
+				</div>
+			</div>
+			<!-- /.box -->
 		</div>
-		<!-- /.col -->
+		<!--/.col (left) -->
+
 	</div>
 	<!-- /.row -->
 
@@ -182,24 +176,26 @@
 
 		$("#btn-delete").on("click", function() {
 			var commentCnt = $(".commentLi").length;
-			
-			if(commentCnt > 0){
+
+			if (commentCnt > 0) {
 				alert("코멘트가 달린 게시물은 삭제할 수 없습니다.");
 				return;
 			}
-			
+
 			if (confirm("삭제하시겠습니까?")) {
 				var arr = [];
-				$(".uploadList li").each(function(index){
+				$(".uploadList li").each(function(index) {
 					arr.push($(this).attr("data-src"));
 				});
-				
-				if(arr.length > 0){
-					$.post("/deleteAllFiles", {files:arr},function(){
-						
+
+				if (arr.length > 0) {
+					$.post("/deleteAllFiles", {
+						files : arr
+					}, function() {
+
 					});
 				}
-				
+
 				formObj.attr("action", "/board/removePage");
 				formObj.submit();
 			}
@@ -245,9 +241,9 @@
 </script>
 
 <script type="text/javascript">
-	Handlebars.registerHelper("eqCommenter", function(commenter, block){
+	Handlebars.registerHelper("eqCommenter", function(commenter, block) {
 		var accum = '';
-		if(commenter == '${login.user_id}'){
+		if (commenter == '${login.user_id}') {
 			accum += block.fn();
 		}
 		return accum;
@@ -271,7 +267,7 @@
 
 	}
 
-	var bno = ${boardVO.bno};
+	var bno = Number('${boardVO.bno}');
 
 	var commentPage = 1;
 
@@ -344,7 +340,7 @@
 					alert("등록되었습니다.");
 					commentPage = 1;
 					getPage("/comment/" + bno + "/" + commentPage);
-					commentWriterObj.val("");
+					//commentWriterObj.val("");
 					commentTextObj.val("");
 				}
 			}
@@ -410,7 +406,7 @@
 	getPage("/comment/" + bno + "/1");
 
 	//파일 처리
-	var bno = ${boardVO.bno};
+	var bno = Number('${boardVO.bno}');
 	var template = Handlebars.compile($("#templateAttach").html());
 
 	$.getJSON("/board/getAttach/" + bno, function(list) {
@@ -424,30 +420,30 @@
 
 		});
 	});
-	
-	$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event){
-		
+
+	$(".uploadedList").on("click", ".mailbox-attachment-info a", function(event) {
+
 		var fileLink = $(this).attr("href");
-		
-		if(checkImageType(fileLink)){
-			
+
+		if (checkImageType(fileLink)) {
+
 			event.preventDefault();
-					
+
 			var imgTag = $("#popup_img");
 			imgTag.attr("src", fileLink);
-			
+
 			console.log(imgTag.attr("src"));
-					
+
 			$(".popup").show('slow');
-			imgTag.addClass("show");		
-		}	
+			imgTag.addClass("show");
+		}
 	});
-	
-	$("#popup_img").on("click", function(){
-		
+
+	$("#popup_img").on("click", function() {
+
 		$(".popup").hide('slow');
-		
-	});	
+
+	});
 </script>
 </div>
 <!-- /.content-wrapper -->

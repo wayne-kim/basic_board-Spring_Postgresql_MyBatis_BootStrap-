@@ -524,12 +524,6 @@
 						</a>
 					</li>
 					<li>
-						<a href="/game/englishPuzzle">
-							<i class="glyphicon glyphicon-pencil"></i>
-							<span>영어 문장 게임</span>
-						</a>
-					</li>
-					<li>
 						<a href="#">
 							<i class="fa fa-circle-o"></i>
 							<span>수강신청</span>
@@ -547,6 +541,36 @@
 							<span>그림판</span>
 						</a>
 					</li>
+					<li>
+						<a href="/game/englishPuzzle">
+							<i class="fa fa-circle-o"></i>
+							<span>영어 퍼즐 게임</span>
+						</a>
+					</li>
+					<!-- 
+					<li class="treeview active">
+						<a href="#">
+							<i class="fa fa-edit"></i>
+							<span>영어 게임</span>
+							<i class="fa fa-angle-left pull-right"></i>
+						</a>
+						<ul class="treeview-menu">
+							<li>
+								<a href="/game/englishPuzzle">
+									<i class="glyphicon glyphicon-pencil"></i>
+									<span>이어 말하기</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="fa fa-circle-o"></i>
+									퍼즐
+								</a>
+							</li>
+						</ul>
+					</li>
+					 -->
+
 				</ul>
 			</section>
 			<!-- /.sidebar -->

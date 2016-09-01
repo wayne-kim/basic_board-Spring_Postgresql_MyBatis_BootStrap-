@@ -8,7 +8,7 @@
 <section class="content">
 	<div class="row">
 		<!-- left column -->
-		<div class="col-md-12">
+		<div class="col-md-10">
 			<!-- general form elements -->
 
 
@@ -89,8 +89,6 @@
 				<!-- /.box-footer-->
 			</div>
 		</div>
-		<!--/.col (left) -->
-
 	</div>
 	<!-- /.row -->
 </section>
