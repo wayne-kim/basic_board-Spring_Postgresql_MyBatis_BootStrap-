@@ -524,6 +524,12 @@
 						</a>
 					</li>
 					<li>
+						<a href="/game/englishPuzzle">
+							<i class="glyphicon glyphicon-font"></i>
+							<span>영어 퍼즐 게임</span>
+						</a>
+					</li>
+					<li>
 						<a href="#">
 							<i class="fa fa-circle-o"></i>
 							<span>수강신청</span>
@@ -533,18 +539,6 @@
 						<a href="#">
 							<i class="fa fa-circle-o"></i>
 							<span>IoT</span>
-						</a>
-					</li>
-					<li>
-						<a href="#">
-							<i class="fa fa-circle-o"></i>
-							<span>그림판</span>
-						</a>
-					</li>
-					<li>
-						<a href="/game/englishPuzzle">
-							<i class="fa fa-circle-o"></i>
-							<span>영어 퍼즐 게임</span>
 						</a>
 					</li>
 					<!-- 
