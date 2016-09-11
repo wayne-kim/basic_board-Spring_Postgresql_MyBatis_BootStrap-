@@ -1,0 +1,252 @@
+-- Table: tbl_attach
+
+-- DROP TABLE tbl_attach;
+
+CREATE TABLE tbl_attach
+(
+  full_name character varying(150) NOT NULL,
+  bno integer,
+  regdate timestamp with time zone DEFAULT now(),
+  visible boolean NOT NULL DEFAULT true,
+  CONSTRAINT tbl_attach_pkey PRIMARY KEY (full_name),
+  CONSTRAINT fk_board_attach FOREIGN KEY (bno)
+      REFERENCES tbl_board (bno) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_attach
+  OWNER TO postgres;
+
+-- Index: fki_board_attach
+
+-- DROP INDEX fki_board_attach;
+
+CREATE INDEX fki_board_attach
+  ON tbl_attach
+  USING btree
+  (bno);
+
+
+-- Table: tbl_board
+
+-- DROP TABLE tbl_board;
+
+CREATE TABLE tbl_board
+(
+  bno integer NOT NULL DEFAULT nextval('tbl_board1_bro_seq'::regclass),
+  title character varying(200) NOT NULL,
+  content text NOT NULL,
+  writer character varying(20) NOT NULL,
+  viewcnt integer DEFAULT 0,
+  visible boolean NOT NULL DEFAULT true,
+  regdate timestamp with time zone NOT NULL DEFAULT now(),
+  revdate timestamp with time zone,
+  comment_cnt integer NOT NULL DEFAULT 0,
+  CONSTRAINT tbl_board1_pkey PRIMARY KEY (bno),
+  CONSTRAINT "tbl_board_writer-tbl_user_user_id" FOREIGN KEY (writer)
+      REFERENCES tbl_user (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_board
+  OWNER TO postgres;
+
+-- Index: "fki_tbl_board_writer-tbl_user_user_id"
+
+-- DROP INDEX "fki_tbl_board_writer-tbl_user_user_id";
+
+CREATE INDEX "fki_tbl_board_writer-tbl_user_user_id"
+  ON tbl_board
+  USING btree
+  (writer COLLATE pg_catalog."default");
+
+
+
+
+
+-- Table: tbl_board_comment
+
+-- DROP TABLE tbl_board_comment;
+
+CREATE TABLE tbl_board_comment
+(
+  cno integer NOT NULL DEFAULT nextval('tbl_board1_comment_cno_seq'::regclass),
+  bno integer NOT NULL,
+  content text NOT NULL,
+  writer character varying(40) NOT NULL,
+  regdate timestamp with time zone NOT NULL DEFAULT now(),
+  revdate timestamp with time zone,
+  visible boolean NOT NULL DEFAULT true,
+  CONSTRAINT tbl_board1_comment_pkey PRIMARY KEY (cno),
+  CONSTRAINT "tbl_board1_comment_bno_TO_tbl_board1_bno" FOREIGN KEY (bno)
+      REFERENCES tbl_board (bno) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "tbl_board_comment_writer_TO_tbl_user_user_id" FOREIGN KEY (writer)
+      REFERENCES tbl_user (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_board_comment
+  OWNER TO postgres;
+
+-- Index: "fki_tbl_board1_comment_bno_TO_tbl_board1_bno"
+
+-- DROP INDEX "fki_tbl_board1_comment_bno_TO_tbl_board1_bno";
+
+CREATE INDEX "fki_tbl_board1_comment_bno_TO_tbl_board1_bno"
+  ON tbl_board_comment
+  USING btree
+  (bno);
+
+-- Index: "fki_tbl_board_comment_writer_TO_tbl_user_user_id"
+
+-- DROP INDEX "fki_tbl_board_comment_writer_TO_tbl_user_user_id";
+
+CREATE INDEX "fki_tbl_board_comment_writer_TO_tbl_user_user_id"
+  ON tbl_board_comment
+  USING btree
+  (writer COLLATE pg_catalog."default");
+
+
+
+
+-- Table: tbl_business_log
+
+-- DROP TABLE tbl_business_log;
+
+CREATE TABLE tbl_business_log
+(
+  lno serial NOT NULL,
+  regdate timestamp with time zone NOT NULL DEFAULT now(),
+  revdate timestamp with time zone,
+  visible boolean DEFAULT true,
+  user_num integer NOT NULL,
+  log text NOT NULL,
+  user_id character varying(40),
+  CONSTRAINT tbl_business_log_pkey PRIMARY KEY (lno),
+  CONSTRAINT fk_tbl_user_user_id FOREIGN KEY (user_id)
+      REFERENCES tbl_user (user_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT "tbl_business_log_user_num_TO_tbl_tbl_user_user_num" FOREIGN KEY (user_num)
+      REFERENCES tbl_user (user_num) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_business_log
+  OWNER TO postgres;
+
+-- Index: "fki_tbl_business_log_user_num_TO_tbl_tbl_user_user_num"
+
+-- DROP INDEX "fki_tbl_business_log_user_num_TO_tbl_tbl_user_user_num";
+
+CREATE INDEX "fki_tbl_business_log_user_num_TO_tbl_tbl_user_user_num"
+  ON tbl_business_log
+  USING btree
+  (user_num);
+
+-- Index: fki_tbl_user_user_id
+
+-- DROP INDEX fki_tbl_user_user_id;
+
+CREATE INDEX fki_tbl_user_user_id
+  ON tbl_business_log
+  USING btree
+  (user_id COLLATE pg_catalog."default");
+
+
+
+
+-- Table: tbl_english_puzzle
+
+-- DROP TABLE tbl_english_puzzle;
+
+CREATE TABLE tbl_english_puzzle
+(
+  ko character varying NOT NULL,
+  en character varying NOT NULL
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_english_puzzle
+  OWNER TO postgres;
+
+  
+  
+  
+  -- Table: tbl_login_ip
+
+-- DROP TABLE tbl_login_ip;
+
+CREATE TABLE tbl_login_ip
+(
+  ip cidr
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_login_ip
+  OWNER TO postgres;
+  
+  
+  
+  
+-- Table: tbl_position
+
+-- DROP TABLE tbl_position;
+
+CREATE TABLE tbl_position
+(
+  content character varying(10),
+  position_id "char" NOT NULL,
+  CONSTRAINT tbl_position_position_id_key UNIQUE (position_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_position
+  OWNER TO postgres;
+  
+  
+ -- Table: tbl_user
+
+-- DROP TABLE tbl_user;
+
+CREATE TABLE tbl_user
+(
+  user_num integer NOT NULL DEFAULT nextval('user_id_seq'::regclass),
+  user_id character varying(40) NOT NULL,
+  user_pw character varying(20) NOT NULL,
+  position_id "char" DEFAULT '0'::"char",
+  user_name character varying(20) NOT NULL,
+  user_login_cnt integer DEFAULT 0,
+  session_key character(50) NOT NULL DEFAULT 'none'::bpchar,
+  session_limit timestamp with time zone,
+  CONSTRAINT user_pkey PRIMARY KEY (user_num),
+  CONSTRAINT fk_user_auth FOREIGN KEY (position_id)
+      REFERENCES tbl_position (position_id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT user_user_id_key UNIQUE (user_id)
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE tbl_user
+  OWNER TO postgres;
+
+-- Index: fki_user_auth
+
+-- DROP INDEX fki_user_auth;
+
+CREATE INDEX fki_user_auth
+  ON tbl_user
+  USING btree
+  (position_id);
