@@ -541,6 +541,12 @@
 							<span>IoT</span>
 						</a>
 					</li>
+					<li>
+						<a href="#">
+							<i class="fa fa-circle-o"></i>
+							<span>FTP</span>
+						</a>
+					</li>
 					<!-- 
 					<li class="treeview active">
 						<a href="#">
