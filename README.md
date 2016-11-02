@@ -39,3 +39,7 @@ Detail environment settting guide
 ###postgresql 설치
 >next 계속 설치 완료 후 /basic_board(Spring_Postgresql_MyBatis_BootStrap)/src/main/webapp/resources/sql의 폴더 내의 쿼리문 전부 실행
 >쿼리문을 최소 게시판, 업무일지, 로그인 기능이 완성되었을 때 올리겠습니다.   
+
+Why can't i write korean at this page, fucking git! Just kidding! i love git.
+Add, Just Simple English Game And Here are not a Iot Feature. Because i am lazy. but~ I broken down many Working things...
+http://blog.naver.com/sumel014/220805629550
