@@ -1,8 +1,8 @@
-#가정용 사물인터넷 제어 웹 프로젝트
+# 가정용 사물인터넷 제어 웹 프로젝트
 
-##핵심목표
+## 핵심목표
 IoT 제조사마다 여러 웹과 앱을 통해서 제어해야하는 불편함을 제거하는 것  
-###부가목표
+### 부가목표
 FTP 서비스  
 업무관리 서비스
 관리자 페이지 서비스
@@ -32,11 +32,11 @@ https://www.postgresql.org/download/>
   
 Detail environment settting guide
 =============  
-###JDK 설치
+### JDK 설치
 >너무 간단해서 생략, 환경설정하는 거 잊지마세요.  
-###STS 다운로드
+### STS 다운로드
 >JDK 설치 안되어 있으면 실행 안됩니다. 먼저 설치해주세요.
-###postgresql 설치
+### postgresql 설치
 >next 계속 설치 완료 후 /basic_board(Spring_Postgresql_MyBatis_BootStrap)/src/main/webapp/resources/sql의 폴더 내의 쿼리문 전부 실행
 >쿼리문을 최소 게시판, 업무일지, 로그인 기능이 완성되었을 때 올리겠습니다.   
 
